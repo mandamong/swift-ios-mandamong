@@ -4,9 +4,8 @@
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
+# Icon must end with two
 Icon
-
 
 # Thumbnails
 ._*
@@ -128,12 +127,16 @@ xcuserdata
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
-!*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
-**/xcshareddata/WorkspaceSettings.xcsettings
 
+### Projects ###
+*.xcodeproj
+*.xcworkspace
 
-### AppSecret ###
-AppSecret.xcconfig
-GoogleService-Info.plist
+### Tuist derived files ###
+graph.dot
+Derived/
+
+### Tuist managed dependencies ###
+Tuist/.build

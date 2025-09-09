@@ -1,0 +1,96 @@
+//
+//  NetworkService.swift
+//  Mandamong
+//
+//  Created by Swain Yun on 9/7/25.
+//
+
+import Foundation
+import Moya
+
+protocol NetworkServiceProtocol: Sendable {
+    func request<T>(_ endpoint: T) async throws -> NetworkResponse where T: TargetType
+}
+
+enum NetworkServiceError: Error {
+    case invalidResponse                  // 잘못된 HTTP 상태 코드
+    case encodingFailed                   // 요청 인코딩 실패
+    case decodingFailed                   // 응답 디코딩 실패
+    case networkFailure                   // 네트워크 연결 실패 (예: 인터넷 끊김)
+    case requestMapping                   // 요청 URL 또는 파라미터 매핑 실패
+    case serverError                      // 서버 내부 에러 (500번대)
+    case unauthorized                     // 인증 실패 (401)
+    case notFound                         // 리소스 없음 (404)
+    case timeout                          // 요청 시간 초과
+}
+
+struct NetworkResponse: Sendable {
+    let statusCode: Int
+    let data: Data
+}
+
+final class NetworkService: @unchecked Sendable {
+    private let provider: MoyaProvider<MultiTarget>
+    
+    init() {
+        provider = MoyaProvider()
+    }
+}
+
+// MARK: - NetworkServiceProtocol Conformation
+extension NetworkService: NetworkServiceProtocol {
+    func request<T>(_ endpoint: T) async throws -> NetworkResponse where T: TargetType {
+        do {
+            print("[NetworkService] - Requesting: \(String(describing: endpoint))")
+            let response = try await provider.asyncRequest(MultiTarget(endpoint))
+            
+            if let responseString = String(data: response.data, encoding: .utf8) { print("\n\(responseString)") }
+            return response
+        } catch let error as NetworkServiceError {
+            print("Network service error: \(error)")
+            throw error
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+            throw NetworkServiceError.networkFailure
+        }
+    }
+}
+
+// MARK: - MoyaProvider + HelperMethods
+extension MoyaProvider {
+    func asyncRequest(_ target: Target) async throws -> NetworkResponse {
+        func mapToNetworkError(_ error: MoyaError) -> NetworkServiceError {
+            switch error {
+            case .statusCode(let response):
+                switch response.statusCode {
+                case 401: return .unauthorized
+                case 404: return .notFound
+                case 500..<600: return .serverError
+                default: return .invalidResponse
+                }
+            case .underlying(_, _):
+                return .networkFailure
+            case .objectMapping, .imageMapping, .jsonMapping, .stringMapping:
+                return .decodingFailed
+            case .encodableMapping, .parameterEncoding:
+                return .encodingFailed
+            case .requestMapping:
+                return .requestMapping
+            }
+        }
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            request(target) { result in
+                switch result {
+                case .success(let response):
+                    let networkResponse = NetworkResponse(statusCode: response.statusCode, data: response.data)
+                    continuation.resume(returning: networkResponse)
+                    
+                case .failure(let moyaError):
+                    let networkError = mapToNetworkError(moyaError)
+                    continuation.resume(throwing: networkError)
+                }
+            }
+        }
+    }
+}
