@@ -11,7 +11,6 @@ let project = Project(
             sources: ["Sources/**"],
             dependencies: [
                 .project(target: "MandaratData", path: "../MandaratData"),
-                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]
