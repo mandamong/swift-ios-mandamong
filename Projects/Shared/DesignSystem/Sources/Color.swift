@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Color {
+public extension Color {
     static let primary = MandamongColor.primary.color
     static let accentColor = MandamongColor.primary.color
     static let background = MandamongColor.background.color
@@ -25,9 +25,9 @@ extension Color {
     static func mandamongColor(_ type: MandamongColor) -> Self { type.color }
 }
 
-enum MandamongColor: UInt {
+public enum MandamongColor: UInt {
     case primary = 0x7122FF
     case background = 0xFAFCFE
     
-    var color: Color { .hex(self.rawValue) }
+    fileprivate var color: Color { .hex(self.rawValue) }
 }

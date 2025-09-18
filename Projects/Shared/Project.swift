@@ -4,12 +4,12 @@ let project = Project(
     name: "Shared",
     targets: [
         .target(
-            name: "Shared",
+            name: "DesignSystem",
             destinations: .iOS,
             product: .framework,
-            bundleId: "com.mandamong.shared",
-            sources: ["Sources/**"],
-            resources: ["Resources/**"],
+            bundleId: "com.mandamong.designsystem",
+            sources: ["DesignSystem/Sources/**"],
+            resources: ["DesignSystem/Resources/**"],
             dependencies: []
         )
     ]

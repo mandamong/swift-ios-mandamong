@@ -13,7 +13,7 @@ let project = Project(
             dependencies: [
                 .project(target: "LoginFeature", path: "../Login/LoginFeature"),
                 .project(target: "MandaratFeature", path: "../Mandarat/MandaratFeature"),
-                .project(target: "Shared", path: "../Shared"),
+                .project(target: "DesignSystem", path: "../Shared"),
                 .project(target: "Network", path: "../Network"),
                 .project(target: "LocalDB", path: "../LocalDB"),
                 .external(name: "ComposableArchitecture")
