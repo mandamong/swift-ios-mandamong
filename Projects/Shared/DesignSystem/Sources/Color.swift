@@ -8,9 +8,9 @@
 import SwiftUI
 
 public extension Color {
-    static let primary = MandamongColor.primary.color
-    static let accentColor = MandamongColor.primary.color
-    static let background = MandamongColor.background.color
+    static let mandamongPrimary = MandamongColor.primary.color
+    static let mandamongAccentColor = MandamongColor.primary.color
+    static let mandamongBackground = MandamongColor.background.color
     
     static func hex(_ hex: UInt, alpha: Double = 1) -> Self {
         .init(
