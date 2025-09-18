@@ -12,7 +12,6 @@ let project = Project(
             dependencies: [
                 .project(target: "Network", path: "../../Network"),
                 .project(target: "LocalDB", path: "../../LocalDB"),
-                .project(target: "Shared", path: "../../Shared")
             ]
         )
     ]

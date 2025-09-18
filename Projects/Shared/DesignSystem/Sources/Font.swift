@@ -57,7 +57,11 @@ public enum TextStyle {
 }
 
 struct TextStyleModifier: ViewModifier {
-    let style: TextStyle
+    public let style: TextStyle
+    
+    public init(style: TextStyle) {
+        self.style = style
+    }
     
     private var calculatedLineSpacing: CGFloat { (style.fontSize * style.lineHeight) - style.fontSize }
     private var calculatedTracking: CGFloat { style.fontSize * style.letterSpacing }
@@ -71,7 +75,7 @@ struct TextStyleModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     func mandamongFont(_ style: TextStyle) -> some View {
         modifier(TextStyleModifier(style: style))
     }
