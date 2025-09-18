@@ -9,8 +9,14 @@ let project = Project(
             product: .framework,
             bundleId: "com.mandamong.designsystem",
             sources: ["DesignSystem/Sources/**"],
-            resources: ["DesignSystem/Resources/**"],
-            dependencies: []
+            resources: ["DesignSystem/Resources/**"]
+        ),
+        .target(
+            name: "Utils",
+            destinations: .iOS,
+            product: .framework,
+            bundleId: "com.mandamong.utils",
+            sources: ["Utils/Sources/**"]
         )
     ]
 )
