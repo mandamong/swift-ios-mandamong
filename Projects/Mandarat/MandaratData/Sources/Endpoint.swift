@@ -9,11 +9,15 @@ import Foundation
 import Moya
 
 enum Endpoint {
-    case checkNicknameDuplication(nickname: String)
-    case checkEmailDuplication(email: String)
-    case requestEmailAuthenticationCode(EmailAuthenticationCodeDTO.Request)
-    case verifyEmail(email: String, code: String)
-    case register(email: String, password: String, nickname: String, image: Data, languageID: String)
-    case login(LoginDTO.Request)
-    case reissueToken(ReissueTokenDTO.Request)
+    case createMandaratBySubject(CreateMandaratBySubjectDTO.Request)
+    case createActionsByObjective(CreateActionsByObjective.Request)
+    case saveMandarat(SaveMandaratDTO.Request)
+    case updateMandaratTitle(id: Int, UpdateMandaratTitleDTO.Request)
+    case updateMandaratSubject(id: Int, UpdateMandaratSubjectDTO.Request)
+    case updateMandaratObjective(id: Int, UpdateMandaratObjectiveDTO.Request)
+    case updateMandaratAction(id: Int, UpdateMandaratActionDTO.Request)
+    case updateActionStatus(id: Int, UpdateActionStatusDTO.Request)
+    case readMandaratList(number: Int?, size: Int?)
+    case readMandaratDetail(id: Int)
+    case deleteMandarat(id: Int)
 }
