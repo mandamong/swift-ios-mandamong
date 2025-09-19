@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import Moya
 
-enum Endpoint {
+enum MandaratEndpoint {
+    // MARK: - Tokens required
     case createMandaratBySubject(CreateMandaratBySubjectDTO.Request)
     case createActionsByObjective(CreateActionsByObjective.Request)
     case saveMandarat(SaveMandaratDTO.Request)
