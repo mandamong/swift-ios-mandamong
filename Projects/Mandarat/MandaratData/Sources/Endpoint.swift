@@ -17,7 +17,7 @@ enum MandaratEndpoint {
     case updateMandaratObjective(id: Int, UpdateMandaratObjectiveDTO.Request)
     case updateMandaratAction(id: Int, UpdateMandaratActionDTO.Request)
     case updateActionStatus(id: Int, UpdateActionStatusDTO.Request)
-    case readMandaratList(number: Int?, size: Int?)
+    case readMandaratList(pageNumber: Int?, pageSize: Int?)
     case readMandaratDetail(id: Int)
     case deleteMandarat(id: Int)
 }
