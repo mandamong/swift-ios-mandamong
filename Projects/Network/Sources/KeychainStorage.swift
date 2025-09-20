@@ -104,7 +104,7 @@ extension KeychainStorage {
         case noErr:
             return
         case errSecItemNotFound:
-            throw .fetchFailed
+            throw .itemNotFound
         case errSecDuplicateItem:
             throw .duplicateItem
         default:
@@ -115,7 +115,7 @@ extension KeychainStorage {
     }
     
     private func convert(_ ref: CFTypeRef?) throws(KeychainStorageError) -> Item {
-        guard let data = ref as? Data else { throw .fetchFailed }
+        guard let data = ref as? Data else { throw .unexpectedData }
         let item = try decode(Item.self, from: data)
         return item
     }
@@ -159,7 +159,7 @@ extension KeychainStorage {
         
         do {
             try _delete(in: query)
-        } catch KeychainStorageError.fetchFailed {
+        } catch KeychainStorageError.itemNotFound {
             return
         } catch {
             throw error
