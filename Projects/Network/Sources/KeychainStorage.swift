@@ -95,7 +95,8 @@ extension KeychainStorage {
         [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: bundleIdentifier,
-            kSecAttrAccount as String: key
+            kSecAttrAccount as String: key,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         ]
     }
     
