@@ -141,19 +141,22 @@ extension KeychainStorage {
         }
     }
     
-    func fetch(completion: @escaping (Result<Item, KeychainStorageError>) -> ()) {
+    func fetch(completion: @escaping (Result<Item, KeychainStorageError>) -> Void) {
         lock.lock()
-        defer { lock.unlock() }
         
+        let result: Result<Item, KeychainStorageError>
         let query = makeQuery()
         
         do {
             let ref = try _read(query)
             let item = try convert(ref)
-            completion(.success(item))
+            result = .success(item)
         } catch {
-            completion(.failure(error))
+            result = .failure(error)
         }
+        
+        lock.unlock()
+        completion(result)
     }
     
     func delete() throws(KeychainStorageError) {
