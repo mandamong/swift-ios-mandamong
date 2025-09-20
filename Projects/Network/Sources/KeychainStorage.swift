@@ -10,8 +10,8 @@ import Security
 
 enum KeychainStorageError: Error {
     case unknown(OSStatus)
-    case fetchFailed
-    case saveFailed
+    case itemNotFound
+    case unexpectedData
     case duplicateItem
     case decodingError(DecodingError)
     case encodingError(EncodingError)
