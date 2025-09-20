@@ -132,8 +132,12 @@ extension KeychainStorage {
         
         do {
             try _update(item, in: query)
-        } catch KeychainStorageError.fetchFailed {
-            try _create(item, in: query)
+        } catch KeychainStorageError.itemNotFound {
+            do {
+                try _create(item, in: query)
+            } catch KeychainStorageError.duplicateItem {
+                try _update(item, in: query)
+            }
         }
     }
     
