@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 // MARK: - APIEndpoint
-protocol APIEndpoint: URLRequestConvertible {
+public protocol APIEndpoint: URLRequestConvertible {
     var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
@@ -56,7 +56,7 @@ extension APIEndpoint {
 }
 
 // MARK: - APITask
-enum APITask {
+public enum APITask {
     case requestPlain
     case requestParameters(parameters: Parameters, encoding: ParameterEncoding)
     case requestJSONEncodable(Encodable)

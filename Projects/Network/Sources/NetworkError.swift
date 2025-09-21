@@ -8,13 +8,13 @@
 import Foundation
 
 // MARK: - NetworkError
-enum NetworkError: Error, LocalizedError {
+public enum NetworkError: Error, LocalizedError {
     case invalidRequest(RequestError)
     case invalidResponse(ResponseError)
     case decodingFailed(underlyingError: Error)
     case unknown(underlyingError: Error)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .invalidRequest(let error):
             return "잘못된 요청: \(error.localizedDescription)"
@@ -29,14 +29,14 @@ enum NetworkError: Error, LocalizedError {
 }
 
 // MARK: - RequestError
-enum RequestError: Error, LocalizedError {
+public enum RequestError: Error, LocalizedError {
     case invalidURL(String)
     case networkUnavailable
     case parameterEncodingFailed(underlyingError: Error)
     case multipartEncodingFailed(underlyingError: Error)
     case jsonBodyEncodingFailed(underlyingError: Error)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .invalidURL(let url):
             return "유효하지 않은 URL입니다: \(url)"
@@ -53,13 +53,13 @@ enum RequestError: Error, LocalizedError {
 }
 
 // MARK: - ResponseError
-enum ResponseError: Error, LocalizedError {
+public enum ResponseError: Error, LocalizedError {
     case noResponse
     case unacceptableStatusCode(StatusCodeError)
     case timeout(underlyingError: Error)
     case noData
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .noResponse:
             return "서버로부터 응답이 없습니다."
@@ -74,7 +74,7 @@ enum ResponseError: Error, LocalizedError {
 }
 
 // MARK: - StatusCodeError
-enum StatusCodeError: Error, LocalizedError {
+public enum StatusCodeError: Error, LocalizedError {
     case badRequest // 400
     case unauthorized // 401
     case forbidden // 403
@@ -91,7 +91,7 @@ enum StatusCodeError: Error, LocalizedError {
     
     case unhandled(code: Int)
     
-    init(statusCode: Int) {
+    public init(statusCode: Int) {
         switch statusCode {
         case 400: self = .badRequest
         case 401: self = .unauthorized
@@ -109,7 +109,7 @@ enum StatusCodeError: Error, LocalizedError {
         }
     }
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .badRequest:
             return "잘못된 요청입니다. (400)"

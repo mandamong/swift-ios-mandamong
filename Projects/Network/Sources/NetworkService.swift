@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 // MARK: - NetworkServiceProtocol
-protocol NetworkServiceProtocol {
+public protocol NetworkServiceProtocol {
     associatedtype Endpoint: APIEndpoint
     
     func request(_ endpoint: Endpoint) async throws(NetworkError)
@@ -17,18 +17,18 @@ protocol NetworkServiceProtocol {
 }
 
 // MARK: - NetworkService
-final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol {
+public final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol {
     private let session: Session
     private let decoder = JSONDecoder()
     
-    init(interceptor: (any RequestInterceptor)? = nil) {
+    public init(interceptor: (any RequestInterceptor)? = nil) {
         self.session = Session(
             interceptor: interceptor,
             eventMonitors: [NetworkLogger()]
         )
     }
     
-    func request(_ endpoint: Endpoint) async throws(NetworkError) {
+    public func request(_ endpoint: Endpoint) async throws(NetworkError) {
         do {
             _ = try await session.request(endpoint)
                 .validate()
@@ -41,7 +41,7 @@ final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol {
         }
     }
     
-    func request<T: Decodable>(_ endpoint: Endpoint) async throws(NetworkError) -> ResponseDTO<T> {
+    public func request<T: Decodable>(_ endpoint: Endpoint) async throws(NetworkError) -> ResponseDTO<T> {
         do {
             switch endpoint.task {
             case .uploadMultipart(let multipartFormData):
