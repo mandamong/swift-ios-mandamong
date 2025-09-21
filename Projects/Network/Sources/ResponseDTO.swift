@@ -7,8 +7,15 @@
 
 import Foundation
 
-struct ResponseDTO<Payload: Decodable>: Decodable {
-    let success: Bool
-    let payload: Payload?
-    let error: String?
+// MARK: - ResponseDTO
+public struct ResponseDTO<Payload: Decodable>: Decodable {
+    public let success: Bool
+    public let payload: Payload?
+    public let error: ErrorDTO?
+}
+
+// MARK: - ErrorDTO
+public struct ErrorDTO: Decodable {
+    public let code: String
+    public let message: String
 }
