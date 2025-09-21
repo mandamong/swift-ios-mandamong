@@ -10,7 +10,7 @@ let project = Project(
             bundleId: "com.mandamong.network",
             sources: ["Sources/**"],
             dependencies: [
-                .external(name: "Moya")
+                .external(name: "Alamofire")
             ]
         )
     ]
