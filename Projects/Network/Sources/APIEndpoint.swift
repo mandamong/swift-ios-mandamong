@@ -17,7 +17,7 @@ protocol APIEndpoint: URLRequestConvertible {
     var task: APITask { get }
 }
 
-// MARK: - URLRequestConvertible Implementation
+// MARK: - URLRequestConvertible Conformation
 extension APIEndpoint {
     func asURLRequest() throws -> URLRequest {
         guard let url = URL(string: baseURL)?.appendingPathComponent(path) else { 
