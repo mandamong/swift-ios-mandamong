@@ -9,7 +9,7 @@ import Foundation
 import Security
 
 enum KeychainStorageError: Error {
-    case unknown(OSStatus)
+    case unknown
     case itemNotFound
     case unexpectedData
     case duplicateItem
@@ -41,7 +41,7 @@ final class KeychainStorage<Item: Codable> {
         } catch let error as DecodingError {
             throw .decodingError(error)
         } catch {
-            throw .unknown(-1)
+            throw .unknown
         }
     }
     
@@ -51,7 +51,7 @@ final class KeychainStorage<Item: Codable> {
         } catch let error as EncodingError {
             throw .encodingError(error)
         } catch {
-            throw .unknown(-1)
+            throw .unknown
         }
     }
     
@@ -87,10 +87,7 @@ final class KeychainStorage<Item: Codable> {
         let status = SecItemDelete(query as CFDictionary)
         try checkStatus(status)
     }
-}
-
-// MARK: - Helper Methods
-extension KeychainStorage {
+    
     private func makeQuery() -> Query {
         [
             kSecClass as String: kSecClassGenericPassword,
@@ -99,8 +96,11 @@ extension KeychainStorage {
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         ]
     }
-    
-    private func checkStatus(_ status: OSStatus) throws(KeychainStorageError) {
+}
+
+// MARK: - Helper Methods
+private extension KeychainStorage {
+    func checkStatus(_ status: OSStatus) throws(KeychainStorageError) {
         switch status {
         case noErr:
             return
@@ -111,11 +111,11 @@ extension KeychainStorage {
         default:
             let errorDescription = SecCopyErrorMessageString(status, nil) as? String ?? "Unknown Error"
             print("[KeychainStorage] - Error Occurred: \(errorDescription) (Code: \(status))")
-            throw KeychainStorageError.unknown(status)
+            throw KeychainStorageError.unknown
         }
     }
     
-    private func convert(_ ref: CFTypeRef?) throws(KeychainStorageError) -> Item {
+    func convert(_ ref: CFTypeRef?) throws(KeychainStorageError) -> Item {
         guard let data = ref as? Data else { throw .unexpectedData }
         let item = try decode(Item.self, from: data)
         return item
