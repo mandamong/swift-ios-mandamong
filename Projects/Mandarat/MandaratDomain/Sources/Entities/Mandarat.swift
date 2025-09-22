@@ -24,3 +24,16 @@ struct Objective: Identifiable {
     }
 }
 
+/// 핵심 주제
+struct Subject: Identifiable {
+    let id: UInt
+    var content: String
+    var isCompleted: Bool
+    
+    init(id: UInt, content: String = String(), isCompleted: Bool = false) {
+        self.id = id
+        self.content = content
+        self.isCompleted = isCompleted
+    }
+}
+
