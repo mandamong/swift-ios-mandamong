@@ -11,11 +11,11 @@ import Foundation
 public struct ResponseDTO<Payload: Decodable>: Decodable {
     public let success: Bool
     public let payload: Payload?
-    public let error: ErrorDTO?
-}
+    public let error: ResponseDTO.ErrorDTO?
 
-// MARK: - ErrorDTO
-public struct ErrorDTO: Decodable {
-    public let code: String
-    public let message: String
+    // MARK: - ErrorDTO
+    public struct ErrorDTO: Decodable {
+        public let code: String
+        public let message: String
+    }
 }
