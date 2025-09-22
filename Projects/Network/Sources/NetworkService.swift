@@ -62,7 +62,7 @@ public final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol
         } catch let error as AFError {
             throw mapError(error)
         } catch {
-            throw NetworkError.decodingFailed(underlyingError: error)
+            throw NetworkError.invalidResponse(.decodingFailed(underlyingError: error))
         }
     }
 }
@@ -95,7 +95,7 @@ private extension NetworkService {
             }
             
         case .responseSerializationFailed:
-            return .decodingFailed(underlyingError: error)
+            return .invalidResponse(.decodingFailed(underlyingError: error))
             
         case .sessionTaskFailed(error: let underlyingError):
             if let urlError = underlyingError as? URLError {
