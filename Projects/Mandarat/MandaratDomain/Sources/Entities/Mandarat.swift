@@ -1,3 +1,12 @@
+//
+//  Mandarat.swift
+//  MandaratDomain
+//
+//  Created by Swain Yun on 9/22/25.
+//
+
+import Foundation
+
 /// 목표별 행동 아이디어
 struct ActionItem: Identifiable {
     let id: UInt
@@ -37,3 +46,19 @@ struct Subject: Identifiable {
     }
 }
 
+/// 만다라트 차트
+struct Mandarat: Identifiable {
+    let id: UInt
+    var title: String
+    var subject: Subject
+    var objectives: [Objective]
+    var createdAt: Date
+    
+    init(id: UInt, title: String, subject: Subject, objectives: [Objective], createdAt: Date = .now) {
+        self.id = id
+        self.title = title
+        self.subject = subject
+        self.objectives = objectives
+        self.createdAt = createdAt
+    }
+}
