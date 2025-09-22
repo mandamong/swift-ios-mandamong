@@ -92,7 +92,7 @@ private extension NetworkService {
                 let statusCodeError = StatusCodeError(statusCode: code)
                 return .invalidResponse(.unacceptableStatusCode(statusCodeError))
             default:
-                return .invalidResponse(.noResponse)
+                return .invalidResponse(.noData)
             }
             
         case .responseSerializationFailed:

@@ -54,15 +54,12 @@ public enum RequestError: Error, LocalizedError {
 
 // MARK: - ResponseError
 public enum ResponseError: Error, LocalizedError {
-    case noResponse
     case unacceptableStatusCode(StatusCodeError)
     case timeout(underlyingError: Error)
     case noData
     
     public var errorDescription: String? {
         switch self {
-        case .noResponse:
-            return "서버로부터 응답이 없습니다."
         case .unacceptableStatusCode(let error):
             return error.localizedDescription
         case .timeout(let error):
