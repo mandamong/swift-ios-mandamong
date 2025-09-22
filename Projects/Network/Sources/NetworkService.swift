@@ -89,8 +89,7 @@ private extension NetworkService {
         case .responseValidationFailed(let reason):
             switch reason {
             case .unacceptableStatusCode(let code):
-                let statusCodeError = StatusCodeError(statusCode: code)
-                return .invalidResponse(.unacceptableStatusCode(statusCodeError))
+                return .invalidResponse(.unacceptableStatusCode(.init(statusCode: code)))
             default:
                 return .invalidResponse(.noData)
             }
