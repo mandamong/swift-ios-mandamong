@@ -109,7 +109,6 @@ private extension NetworkService {
                     return .invalidRequest(.networkUnavailable)
                 case .cancelled:
                     return .invalidResponse(.cancelled)
-                case .
                 default:
                     return .unknown(underlyingError: urlError)
                 }
