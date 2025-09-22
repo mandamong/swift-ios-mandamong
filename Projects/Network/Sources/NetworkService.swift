@@ -19,13 +19,17 @@ public protocol NetworkServiceProtocol {
 // MARK: - NetworkService
 public final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol {
     private let session: Session
-    private let decoder = JSONDecoder()
+    private let decoder: JSONDecoder
     
-    public init(interceptor: (any RequestInterceptor)? = nil) {
+    public init(
+        interceptor: (any RequestInterceptor)? = nil,
+        decoder: JSONDecoder = JSONDecoder()
+    ) {
         self.session = Session(
             interceptor: interceptor,
             eventMonitors: [NetworkLogger()]
         )
+        self.decoder = decoder
     }
     
     public func request(_ endpoint: Endpoint) async throws(NetworkError) {
