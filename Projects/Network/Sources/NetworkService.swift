@@ -62,7 +62,7 @@ public final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol
         } catch let error as AFError {
             throw mapError(error)
         } catch {
-            throw NetworkError.invalidResponse(.decodingFailed(underlyingError: error))
+            throw NetworkError.unknown(underlyingError: error)
         }
     }
 }
