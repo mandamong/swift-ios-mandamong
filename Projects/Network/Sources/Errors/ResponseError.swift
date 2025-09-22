@@ -8,6 +8,7 @@ public extension NetworkError {
         case timeout(underlyingError: Error)
         case noData
         case decodingFailed(underlyingError: Error)
+        case cancelled
         
         public var errorDescription: String? {
             switch self {
@@ -19,6 +20,8 @@ public extension NetworkError {
                 return "응답 데이터가 없습니다."
             case .decodingFailed(let error):
                 return "응답 디코딩에 실패했습니다: \(error.localizedDescription)"
+            case .cancelled:
+                return "요청이 취소되었습니다."
             }
         }
     }

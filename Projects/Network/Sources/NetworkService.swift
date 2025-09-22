@@ -25,10 +25,13 @@ public final class NetworkService<Endpoint: APIEndpoint>: NetworkServiceProtocol
         interceptor: (any RequestInterceptor)? = nil,
         decoder: JSONDecoder = JSONDecoder()
     ) {
-        self.session = Session(
-            interceptor: interceptor,
-            eventMonitors: [NetworkLogger()]
-        )
+        #if DEBUG
+        let monitors: [any EventMonitor] = [NetworkLogger()]
+        #else
+        let monitors: [any EventMonitor] = []
+        #endif
+        self.session = Session(interceptor: interceptor, eventMonitors: monitors)
+        
         self.decoder = decoder
     }
     
@@ -104,6 +107,9 @@ private extension NetworkService {
                     return .invalidResponse(.timeout(underlyingError: urlError))
                 case .notConnectedToInternet:
                     return .invalidRequest(.networkUnavailable)
+                case .cancelled:
+                    return .invalidResponse(.cancelled)
+                case .
                 default:
                     return .unknown(underlyingError: urlError)
                 }
