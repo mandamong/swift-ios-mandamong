@@ -1,5 +1,5 @@
 //
-//  NetworkInterceptor.swift
+//  TokenInterceptor.swift
 //  Network
 //
 //  Created by 김진웅 on 9/22/25.
@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-final class NetworkInterceptor: RequestInterceptor {
+final class TokenInterceptor: RequestInterceptor {
     // TODO: 토큰 관리 객체 주입
     
     func adapt(
