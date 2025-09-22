@@ -10,3 +10,17 @@ struct ActionItem: Identifiable {
         self.isCompleted = isCompleted
     }
 }
+
+/// 핵심 주제별 목표
+struct Objective: Identifiable {
+    let id:  UInt
+    var content: String
+    var actionItems: [ActionItem]
+    
+    init(id: UInt, content: String = String(), actionItems: [ActionItem] = []) {
+        self.id = id
+        self.content = content
+        self.actionItems = actionItems
+    }
+}
+
