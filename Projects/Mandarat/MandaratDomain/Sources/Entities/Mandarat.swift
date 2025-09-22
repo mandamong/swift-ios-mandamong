@@ -8,7 +8,7 @@
 import Foundation
 
 /// 목표별 행동 아이디어
-struct ActionItem: Identifiable {
+struct ActionIdea: Identifiable {
     let id: UInt
     var action: String
     var isCompleted: Bool
@@ -18,7 +18,7 @@ struct ActionItem: Identifiable {
 struct Objective: Identifiable {
     let id:  UInt
     var content: String
-    var actionItems: [ActionItem]
+    var actionItems: [ActionIdea]
 }
 
 /// 핵심 주제
