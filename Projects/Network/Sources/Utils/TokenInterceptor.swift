@@ -8,10 +8,12 @@
 import Foundation
 import Alamofire
 
-final class TokenInterceptor: RequestInterceptor {
+public final class TokenInterceptor: RequestInterceptor {
     // TODO: 토큰 관리 객체 주입
     
-    func adapt(
+    public init() {}
+
+    public func adapt(
         _ urlRequest: URLRequest,
         for session: Session,
         completion: @escaping (Result<URLRequest, Error>) -> Void
@@ -21,7 +23,7 @@ final class TokenInterceptor: RequestInterceptor {
         completion(.success(urlRequest))
     }
     
-    func retry(
+    public func retry(
         _ request: Request,
         for session: Session,
         dueTo error: Error,
