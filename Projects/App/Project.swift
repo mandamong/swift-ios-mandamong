@@ -8,7 +8,13 @@ let project = Project(
             destinations: .iOS,
             product: .app,
             bundleId: "com.mandamong.app",
-            infoPlist: .default,
+            infoPlist: .extendingDefault(with: [
+                "UIAppFonts": [
+                    "DesignSystem.framework/SpoqaHanSansNeo-Bold.otf",
+                    "DesignSystem.framework/SpoqaHanSansNeo-Medium.otf",
+                    "DesignSystem.framework/SpoqaHanSansNeo-Regular.otf"
+                ]
+            ]),
             sources: ["Sources/**"],
             dependencies: [
                 .project(target: "LoginFeature", path: "../Login/LoginFeature"),
