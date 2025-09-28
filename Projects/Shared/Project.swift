@@ -9,6 +9,7 @@ let project = Project(
             product: .framework,
             bundleId: "com.mandamong.designsystem",
             deploymentTargets: .iOS("17.0"),
+            infoPlist: .default,
             sources: ["DesignSystem/Sources/**"],
             resources: ["DesignSystem/Resources/**"]
         ),
@@ -20,5 +21,6 @@ let project = Project(
             deploymentTargets: .iOS("17.0"),
             sources: ["Utils/Sources/**"]
         )
-    ]
+    ],
+    resourceSynthesizers: .default
 )
