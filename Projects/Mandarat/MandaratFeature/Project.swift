@@ -12,6 +12,7 @@ let project = Project(
             sources: ["Sources/**"],
             dependencies: [
                 .project(target: "MandaratDomain", path: "../MandaratDomain"),
+                .project(target: "DesignSystem", path: "../../Shared"),
                 .external(name: "ComposableArchitecture")
             ]
         )

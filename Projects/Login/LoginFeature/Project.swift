@@ -12,6 +12,7 @@ let project = Project(
             sources: ["Sources/**"],
             dependencies: [
                 .project(target: "LoginDomain", path: "../LoginDomain"),
+                .project(target: "DesignSystem", path: "../../Shared"),
                 .external(name: "ComposableArchitecture")
             ]
         )
