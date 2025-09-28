@@ -8,6 +8,7 @@ let project = Project(
             destinations: .iOS,
             product: .app,
             bundleId: "com.mandamong.app",
+            deploymentTargets: .iOS("17.0"),
             infoPlist: .extendingDefault(with: [
                 "UIAppFonts": [
                     "DesignSystem.framework/SpoqaHanSansNeo-Bold.otf",
