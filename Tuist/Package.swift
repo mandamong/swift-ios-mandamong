@@ -8,7 +8,29 @@ import PackageDescription
         // Customize the product types for specific package product
         // Default is .staticFramework
         // productTypes: ["Alamofire": .framework,]
-        productTypes: [:]
+        productTypes: [
+            "ComposableArchitecture": .framework,
+            "CasePathsCore": .framework,
+            "Clocks": .framework,
+            "CombineSchedulers": .framework,
+            "ConcurrencyExtras": .framework,
+            "CustomDump": .framework,
+            "Dependencies": .framework,
+            "IdentifiedCollections": .framework,
+            "InternalCollectionsUtilities": .framework,
+            "IssueReporting": .framework,
+            "IssueReportingPackageSupport": .framework,
+            "OrderedCollections": .framework,
+            "PerceptionCore": .framework,
+            "Sharing": .framework,
+            "Sharing1": .framework,
+            "Sharing2": .framework,
+            "SwiftNavigation": .framework,
+            "SwiftUINavigation": .framework,
+            "UIKitNavigation": .framework,
+            "UIKitNavigationShim": .framework,
+            "XCTestDynamicOverlay": .framework
+        ]
     )
 #endif
 
