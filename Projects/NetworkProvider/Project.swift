@@ -1,13 +1,13 @@
 import ProjectDescription
 
 let project = Project(
-    name: "Network",
+    name: "NetworkProvider",
     targets: [
         .target(
-            name: "Network",
+            name: "NetworkProvider",
             destinations: .iOS,
             product: .framework,
-            bundleId: "com.mandamong.network",
+            bundleId: "com.mandamong.networkprovider",
             deploymentTargets: .iOS("17.0"),
             sources: ["Sources/**"],
             dependencies: [
