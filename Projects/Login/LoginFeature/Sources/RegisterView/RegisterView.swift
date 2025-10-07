@@ -53,12 +53,12 @@ struct RegisterView: View {
                 Text(Mandamong.Strings.Register.switchToLoginButtonTitle)
                     .underline()
             }
-            .onChange(of: store.focusedField) { _, newValue in
-                focusState = newValue
-            }
-            .onChange(of: focusState) { _, newValue in
-                store.send(.binding(.set(\.focusedField, newValue)))
-            }
+        }
+        .onChange(of: store.focusedField) { _, newValue in
+            focusState = newValue
+        }
+        .onChange(of: focusState) { _, newValue in
+            store.send(.binding(.set(\.focusedField, newValue)))
         }
         .padding()
     }
