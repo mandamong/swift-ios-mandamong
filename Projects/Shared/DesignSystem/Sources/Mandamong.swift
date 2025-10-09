@@ -8,9 +8,7 @@
 import Foundation
 
 /// 앱  최상위 네임스페이스
-public enum Mandamong {
-    
-}
+public enum Mandamong { }
 
 // MARK: - Mandamong + Strings
 extension Mandamong {
@@ -38,8 +36,6 @@ extension Mandamong {
             public static let registerButtonTitle: String = "회원가입"
             public static let switchToLoginButtonTitle: String = "이미 계정이 있으신가요? 로그인"
         }
-        
-        
     }
 }
 
