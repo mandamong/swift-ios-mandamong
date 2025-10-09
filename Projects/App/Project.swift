@@ -19,7 +19,19 @@ let project = Project(
             dependencies: [
                 .project(target: "LoginFeature", path: "../Login/LoginFeature"),
                 .project(target: "MandaratFeature", path: "../Mandarat/MandaratFeature"),
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "CODE_SIGN_STYLE": "Manual",
+                    "DEVELOPMENT_TEAM": "P85DW78LYM",
+                ],
+                configurations: [
+                    .debug(name: .debug, settings: [
+                        "CODE_SIGN_IDENTITY": "Apple Development",
+                        "PROVISIONING_PROFILE_SPECIFIER": "debug-mandamong",
+                    ])
+                ]
+            )
         )
     ]
 )
