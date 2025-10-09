@@ -15,10 +15,19 @@ let project = Project(
                 ])
             ]),
             sources: ["Sources/**"],
+            entitlements: .file(path: .relativeToRoot("Projects/App/App.entitlements")),
             dependencies: [
                 .project(target: "LoginFeature", path: "../Login/LoginFeature"),
                 .project(target: "MandaratFeature", path: "../Mandarat/MandaratFeature"),
-            ]
+            ],
+            settings: .settings(
+                configurations: [
+                    .debug(
+                        name: .debug,
+                        xcconfig: .relativeToRoot("Tuist/Configs/Debug.xcconfig")
+                    )
+                ]
+            )
         )
     ]
 )
