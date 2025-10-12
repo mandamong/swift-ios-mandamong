@@ -8,31 +8,93 @@
 import Foundation
 
 /// 목표별 행동 아이디어
-struct ActionIdea: Identifiable {
-    let id: UInt
-    var action: String
-    var isCompleted: Bool
+public struct ActionIdea: Identifiable, Equatable, Hashable {
+    public let id: UInt
+    public var action: String
+    public var isCompleted: Bool
+    
+    public init(id: UInt, action: String, isCompleted: Bool) {
+        self.id = id
+        self.action = action
+        self.isCompleted = isCompleted
+    }
 }
 
 /// 핵심 주제별 목표
-struct Objective: Identifiable {
-    let id:  UInt
-    var content: String
-    var actionItems: [ActionIdea]
+public struct Objective: Identifiable, Equatable, Hashable {
+    public let id:  UInt
+    public var content: String
+    public var actionItems: [ActionIdea]
+    
+    public init(id: UInt, content: String, actionItems: [ActionIdea]) {
+        self.id = id
+        self.content = content
+        self.actionItems = actionItems
+    }
 }
 
 /// 핵심 주제
-struct Subject: Identifiable {
-    let id: UInt
-    var content: String
-    var isCompleted: Bool
+public struct Subject: Identifiable, Equatable, Hashable {
+    public let id: UInt
+    public var content: String
+    public var isCompleted: Bool
+    
+    public init(id: UInt, content: String, isCompleted: Bool) {
+        self.id = id
+        self.content = content
+        self.isCompleted = isCompleted
+    }
 }
 
 /// 만다라트 차트
-struct Mandarat: Identifiable {
-    let id: UInt
-    var title: String = ""
-    var subject: Subject
-    var objectives: [Objective]
-    let createdAt: Date = .now
+public struct Mandarat: Identifiable, Equatable {
+    public let id: UInt
+    public var title: String
+    public var subject: Subject
+    public var objectives: [Objective]
+    public let createdAt: Date
+    
+    public init(id: UInt, title: String, subject: Subject, objectives: [Objective], createdAt: Date = .now) {
+        self.id = id
+        self.title = title
+        self.subject = subject
+        self.objectives = objectives
+        self.createdAt = createdAt
+    }
+    
+    public static let mock = Mandarat(
+        id: 1,
+        title: "SwiftUI 마스터하기",
+        subject: Subject(id: 100, content: "핵심주제\nSwiftUI 정복", isCompleted: false),
+        objectives: [
+            Objective(id: 201, content: "목표 1\n기본기", actionItems: [
+                ActionIdea(id: 301, action: "View와 Modifier", isCompleted: false),
+                ActionIdea(id: 302, action: "Layout 시스템", isCompleted: false),
+                ActionIdea(id: 303, action: "State 관리 기초", isCompleted: false),
+                ActionIdea(id: 304, action: "Preview 활용", isCompleted: false),
+                ActionIdea(id: 305, action: "SF Symbols", isCompleted: false)
+            ]),
+            Objective(id: 202, content: "목표 2\n상태 관리", actionItems: [
+                ActionIdea(id: 401, action: "@StateObject", isCompleted: false),
+                ActionIdea(id: 402, action: "@ObservedObject", isCompleted: false),
+                ActionIdea(id: 403, action: "@EnvironmentObject", isCompleted: false),
+                ActionIdea(id: 404, action: "Binding", isCompleted: false),
+                ActionIdea(id: 405, action: "데이터 흐름 이해", isCompleted: false)
+            ]),
+            Objective(id: 203, content: "목표 3\n고급 UI", actionItems: [
+                ActionIdea(id: 501, action: "Custom View", isCompleted: false),
+                ActionIdea(id: 502, action: "Animation", isCompleted: false),
+                ActionIdea(id: 503, action: "Gesture", isCompleted: false),
+                ActionIdea(id: 504, action: "Navigation", isCompleted: false),
+                ActionIdea(id: 505, action: "MatchedGeometry", isCompleted: false)
+            ]),
+            Objective(id: 204, content: "목표 4\n앱 배포", actionItems: [
+                ActionIdea(id: 601, action: "App Store Connect", isCompleted: false),
+                ActionIdea(id: 602, action: "인증서 관리", isCompleted: false),
+                ActionIdea(id: 603, action: "TestFlight", isCompleted: false),
+                ActionIdea(id: 604, action: "앱 아이콘/스샷", isCompleted: false),
+                ActionIdea(id: 605, action: "버전 관리", isCompleted: false)
+            ])
+        ]
+    )
 }
