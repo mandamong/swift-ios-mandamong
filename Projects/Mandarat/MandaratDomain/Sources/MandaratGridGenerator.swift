@@ -88,17 +88,11 @@ public struct CellInfo: Identifiable, Equatable {
     public let row: Int
     /// 그리드 내 열(column) 위치
     public let column: Int
-    /// 고유 식별자
+    /// 셀의 고유 식별자
     ///
-    /// - Note: 데이터 소스가 실제 데이터를 가질 경우 해당 데이터의 식별자를 사용하고,
-    /// `.placeholder`일 경우 좌표를 기반으로 한 식별자를 생성하여 뷰 렌더링에 이용합니다.
+    /// 그리드 내 좌표를 기반으로 `ForEach`의 diffing 렌더링 등에 사용됩니다.
     public var id: UInt {
-        switch dataSource {
-        case .subject(let subject): subject.id
-        case .objective(let objective): objective.id
-        case .actionIdea(let actionIdea): actionIdea.id
-        case .placeholder: UInt(1000 + (row * 10) + column)
-        }
+        return UInt((row * 5) + column)
     }
 }
 
