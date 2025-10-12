@@ -13,8 +13,6 @@ struct MandaratCellView: View {
     /// 뷰의 스타일과 관련된 상수 값을 관리하는 이름 공간입니다.
     private enum Style {
         static let cornerRadius: CGFloat = 10
-        static let focusedTextPadding: CGFloat = 8
-        static let groupMemberTextPadding: CGFloat = 6
         static let groupMemberLineLimit: Int = 3
     }
     
@@ -30,17 +28,12 @@ struct MandaratCellView: View {
     let isFocused: Bool
     let isGroupMember: Bool
     let namespace: Namespace.ID
-    let focusedSize: CGFloat
-    let groupMemberSize: CGFloat
+    let activeSize: CGFloat
     let inactiveSize: CGFloat
     
     private var isVisible: Bool { isFocused || isGroupMember }
     
-    private var size: CGFloat {
-        if isFocused { return focusedSize }
-        if isGroupMember { return groupMemberSize }
-        return inactiveSize
-    }
+    private var size: CGFloat { isVisible ? activeSize : inactiveSize }
     
     private var backgroundColor: Color {
         switch dataSource {
@@ -55,7 +48,6 @@ struct MandaratCellView: View {
             .frame(width: size, height: size)
             .mandamongFont(isFocused ? .cellCore : .cellIdea)
             .multilineTextAlignment(.center)
-            .padding(isFocused ? Style.focusedTextPadding : Style.groupMemberTextPadding)
             .lineLimit(isFocused ? nil : Style.groupMemberLineLimit)
             .background(
                 RoundedRectangle(cornerRadius: Style.cornerRadius)

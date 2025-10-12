@@ -22,11 +22,9 @@ public struct MandaratChartView: View {
             static let extraBounce: CGFloat = 0.2
         }
         
-        /// 화면 너비에 대한 각 셀 크기 비율
-        enum SizeRatio {
-            static let focused: CGFloat = 0.32
-            static let groupMember: CGFloat = 0.2
-            static let inactive: CGFloat = 0.05
+        enum Sizing {
+            static let activeUnit: CGFloat = 5.0
+            static let inactiveUnit: CGFloat = 2.0
         }
     }
     
@@ -42,16 +40,17 @@ public struct MandaratChartView: View {
             let gridSizeLength = min(proxy.size.width, proxy.size.height)
             let totalSpacing = Constants.gridSpacing * CGFloat(Constants.gridRange.count - 1)
             let contentWidth = gridSizeLength - (Constants.horizontalPadding * 2) - totalSpacing
-            let focusedSize = contentWidth * Constants.SizeRatio.focused
-            let groupMemberSize = contentWidth * Constants.SizeRatio.groupMember
-            let inactiveSize = contentWidth * Constants.SizeRatio.inactive
+            let totalUnitsInWorstCase = (Constants.Sizing.activeUnit * 3) + (Constants.Sizing.inactiveUnit * 2)
+            let unitPixelSize = contentWidth / totalUnitsInWorstCase
+            let activeSize = unitPixelSize * Constants.Sizing.activeUnit
+            let inactiveSize = unitPixelSize * Constants.Sizing.inactiveUnit
             
-            Grid(horizontalSpacing: Constants.gridSpacing, verticalSpacing: Constants.gridSpacing) {
+            Grid(alignment: .center, horizontalSpacing: Constants.gridSpacing, verticalSpacing: Constants.gridSpacing) {
                 ForEach(Constants.gridRange, id: \.self) { row in
                     GridRow {
                         ForEach(Constants.gridRange, id: \.self) { column in
                             if let info = cellInfo(atRow: row, atColumn: column) {
-                                cell(for: info, focusedSize: focusedSize, groupMemberSize: groupMemberSize, inactiveSize: inactiveSize)
+                                cell(for: info, activeSize: activeSize, inactiveSize: inactiveSize)
                             } else {
                                 Color.clear
                             }
@@ -59,7 +58,6 @@ public struct MandaratChartView: View {
                     }
                 }
             }
-            .padding(Constants.horizontalPadding)
             .frame(width: gridSizeLength, height: gridSizeLength)
             .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
         }
@@ -108,8 +106,7 @@ private extension MandaratChartView {
     @ViewBuilder
     func cell(
         for info: CellInfo,
-        focusedSize: CGFloat,
-        groupMemberSize: CGFloat,
+        activeSize: CGFloat,
         inactiveSize: CGFloat
     ) -> some View {
         let (isFocused, isGroupMember) = calculateCellStatus(for: info.dataSource, with: store.focus)
@@ -119,8 +116,7 @@ private extension MandaratChartView {
             isFocused: isFocused,
             isGroupMember: isGroupMember,
             namespace: animation,
-            focusedSize: focusedSize,
-            groupMemberSize: groupMemberSize,
+            activeSize: activeSize,
             inactiveSize: inactiveSize
         )
         .onTapGesture {
