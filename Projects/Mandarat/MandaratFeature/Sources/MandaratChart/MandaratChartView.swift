@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import MandaratDomain
 
-fileprivate typealias ChartFocus = MandaratChartFeature.ChartFocus
+private typealias ChartFocus = MandaratChartFeature.ChartFocus
 
 public struct MandaratChartView: View {
     /// 뷰에서 사용되는 상수 값을 관리하는 이름 공간입니다.
