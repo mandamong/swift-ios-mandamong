@@ -25,7 +25,7 @@ public struct MandaratChartView: View {
         /// 화면 너비에 대한 각 셀 크기 비율
         enum SizeRatio {
             static let focused: CGFloat = 0.32
-            static let groupMember: CGFloat = 0.16
+            static let groupMember: CGFloat = 0.2
             static let inactive: CGFloat = 0.05
         }
     }
@@ -40,7 +40,8 @@ public struct MandaratChartView: View {
     public var body: some View {
         GeometryReader { proxy in
             let gridSizeLength = min(proxy.size.width, proxy.size.height)
-            let contentWidth = gridSizeLength - (Constants.horizontalPadding * 2)
+            let totalSpacing = Constants.gridSpacing * CGFloat(Constants.gridRange.count - 1)
+            let contentWidth = gridSizeLength - (Constants.horizontalPadding * 2) - totalSpacing
             let focusedSize = contentWidth * Constants.SizeRatio.focused
             let groupMemberSize = contentWidth * Constants.SizeRatio.groupMember
             let inactiveSize = contentWidth * Constants.SizeRatio.inactive
