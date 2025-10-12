@@ -37,11 +37,12 @@ public struct MandaratChartView: View {
     
     public var body: some View {
         GeometryReader { proxy in
-            let gridSizeLength = min(proxy.size.width, proxy.size.height)
+            let paddedViewSideLength = min(proxy.size.width, proxy.size.height)
+            let gridContentWidth = paddedViewSideLength - (Constants.horizontalPadding * 2)
             let totalSpacing = Constants.gridSpacing * CGFloat(Constants.gridRange.count - 1)
-            let contentWidth = gridSizeLength - (Constants.horizontalPadding * 2) - totalSpacing
+            let cellAreaWidth = gridContentWidth - totalSpacing
             let totalUnitsInWorstCase = (Constants.Sizing.activeUnit * 3) + (Constants.Sizing.inactiveUnit * 2)
-            let unitPixelSize = contentWidth / totalUnitsInWorstCase
+            let unitPixelSize = cellAreaWidth / totalUnitsInWorstCase
             let activeSize = unitPixelSize * Constants.Sizing.activeUnit
             let inactiveSize = unitPixelSize * Constants.Sizing.inactiveUnit
             
@@ -58,7 +59,8 @@ public struct MandaratChartView: View {
                     }
                 }
             }
-            .frame(width: gridSizeLength, height: gridSizeLength)
+            .padding(Constants.horizontalPadding)
+            .frame(width: paddedViewSideLength, height: paddedViewSideLength)
             .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
         }
     }
