@@ -68,13 +68,9 @@ private extension MandaratGridGenerator {
      - Returns: `ObjectPosition` 또는 유효하지 않은 경우 `nil`
      */
     static func objectivePosition(at position: Coordinate) -> Layout.ObjectPosition? {
-        switch position {
-        case (1, 2): .top
-        case (3, 2): .bottom
-        case (2, 1): .leading
-        case (2, 3): .trailing
-        default: nil
-        }
+        let relativePositions: [Layout.ObjectPosition] = [.leading, .top, .trailing, .bottom]
+        guard let index = Layout.objectivePositions.firstIndex(where: { $0.row == position.row && $0.column == position.column }) else { return nil }
+        return relativePositions[index]
     }
 }
 
