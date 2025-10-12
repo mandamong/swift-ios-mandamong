@@ -67,6 +67,10 @@ private extension MandaratChartFeature {
         case .actionIdea(let actionIdea):
             guard let superObjective = state.mandarat.objectives.first(where: { $0.actionItems.contains(where: { $0.id == actionIdea.id }) }) else { return }
             state.focus = .objective(id: superObjective.id)
+            
+        case .placeholder:
+            // TODO: 빈 셀일 때는 만다라트 요소 추가 등의 작업 (WIP)
+            return
         }
     }
 }

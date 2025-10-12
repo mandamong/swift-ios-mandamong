@@ -36,27 +36,29 @@ public struct MandaratGridGenerator {
      - Returns: 각 셀의 위치와 데이터 정보를 담고 있는 `CellInfo` 배열.
      */
     public static func generate(for mandarat: Mandarat) -> [CellInfo] {
-        var infos = [CellInfo]()
-        
-        infos.append(CellInfo(dataSource: .subject(mandarat.subject), row: Layout.center.row, column: Layout.center.column))
-        
-        let objectivesWithPostions: [(Objective, Coordinate)] = Array(zip(mandarat.objectives, Layout.objectivePositions))
-        
-        for (objective, position) in objectivesWithPostions {
-            infos.append(CellInfo(dataSource: .objective(objective), row: position.row, column: position.column))
-            
+        let subjectInfo = CellInfo(dataSource: .subject(mandarat.subject), row: Layout.center.row, column: Layout.center.column)
+        let otherInfos = Layout.objectivePositions.enumerated().flatMap { (index, position) -> [CellInfo] in
             guard let objectPosition = objectivePosition(at: position),
                   let actionPositions = Layout.actionIdeaPositions[objectPosition]
-            else { continue }
+            else { return [] }
             
-            let actionItemsWithPositions = Array(zip(objective.actionItems, actionPositions))
-            
-            for (actionItem, actionPosition) in actionItemsWithPositions {
-                infos.append(CellInfo(dataSource: .actionIdea(actionItem), row: actionPosition.row, column: actionPosition.column))
+            if mandarat.objectives.indices.contains(index) {
+                let objective = mandarat.objectives[index]
+                let objectiveCell = CellInfo(dataSource: .objective(objective), row: position.row, column: position.column)
+                let actionCells = actionPositions.enumerated().map { (index, position) -> CellInfo in
+                    guard objective.actionItems.indices.contains(index) else { return CellInfo(dataSource: .placeholder, row: position.row, column: position.column) }
+                    return CellInfo(dataSource: .actionIdea(objective.actionItems[index]), row: position.row, column: position.column)
+                }
+                
+                return [objectiveCell] + actionCells
+            } else {
+                let objectivePlaceholder = CellInfo(dataSource: .placeholder, row: position.row, column: position.column)
+                let actionPlaceholders = actionPositions.map { CellInfo(dataSource: .placeholder, row: $0.row, column: $0.column) }
+                return [objectivePlaceholder] + actionPlaceholders
             }
         }
         
-        return infos
+        return [subjectInfo] + otherInfos
     }
 }
 
@@ -87,7 +89,17 @@ public struct CellInfo: Identifiable, Equatable {
     /// 그리드 내 열(column) 위치
     public let column: Int
     /// 고유 식별자
-    public var id: UInt { dataSource.id }
+    ///
+    /// - Note: 데이터 소스가 실제 데이터를 가질 경우 해당 데이터의 식별자를 사용하고,
+    /// `.placeholder`일 경우 좌표를 기반으로 한 식별자를 생성하여 뷰 렌더링에 이용합니다.
+    public var id: UInt {
+        switch dataSource {
+        case .subject(let subject): subject.id
+        case .objective(let objective): objective.id
+        case .actionIdea(let actionIdea): actionIdea.id
+        case .placeholder: UInt(1000 + (row * 10) + column)
+        }
+    }
 }
 
 /**
@@ -99,17 +111,7 @@ public enum MandaratDataSource: Equatable, Hashable {
     case subject(Subject)
     case objective(Objective)
     case actionIdea(ActionIdea)
-    
-    /// 고유 식별자
-    ///
-    /// `matchedGeometryEffect`의 애니메이션과 `Identifiable` 준수를 위해 사용됩니다.
-    public var id: UInt {
-        switch self {
-        case .subject(let item): return item.id
-        case .objective(let item): return item.id
-        case .actionIdea(let item): return item.id
-        }
-    }
+    case placeholder
     
     /// 데이터 소스가 셀에 표시할 텍스트 컨텐츠입니다.
     public var content: String {
@@ -117,6 +119,7 @@ public enum MandaratDataSource: Equatable, Hashable {
         case .subject(let item): return item.content
         case .objective(let item): return item.content
         case .actionIdea(let item): return item.action
+        case .placeholder: return ""
         }
     }
 }

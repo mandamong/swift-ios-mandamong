@@ -87,14 +87,25 @@ private extension MandaratChartView {
     func calculateCellStatus(for dataSource: MandaratDataSource, with focus: ChartFocus) -> (isFocused: Bool, isGroupMember: Bool) {
         switch focus {
         case .subject:
-            let isFocused = (dataSource.id == store.mandarat.subject.id)
-            return (isFocused, false)
+            guard case let .subject(subject) = dataSource else { return (false, false) }
+            return (subject.id == store.mandarat.subject.id, false)
             
         case .objective(let focusedID):
-            let isFocused = (dataSource.id == focusedID)
+            var isFocused: Bool = false
+            var isGroupMember: Bool = false
             
-            guard let objective = store.mandarat.objectives.first(where: { $0.id == focusedID }) else { return (isFocused, false) }
-            let isGroupMember = objective.actionItems.contains { $0.id == dataSource.id }
+            switch dataSource {
+            case .objective(let objective):
+                isFocused = (objective.id == focusedID)
+                
+            case .actionIdea(let actionIdea):
+                guard let focusedObjective = store.mandarat.objectives.first(where: { $0.id == focusedID }) else { break }
+                isGroupMember = focusedObjective.actionItems.contains { $0.id == actionIdea.id }
+                
+            default:
+                break
+            }
+            
             return (isFocused, isGroupMember)
         }
     }
@@ -112,7 +123,7 @@ private extension MandaratChartView {
         let (isFocused, isGroupMember) = calculateCellStatus(for: info.dataSource, with: store.focus)
         
         MandaratCellView(
-            dataSource: info.dataSource,
+            info: info,
             isFocused: isFocused,
             isGroupMember: isGroupMember,
             namespace: animation,

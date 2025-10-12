@@ -22,14 +22,19 @@ struct MandaratCellView: View {
         static let visibleObjective: Double = 0.7
         static let visibleAction: Double = 0.6
         static let inactive: Double = 0.3
+        static let placeholder: Double = 0.2
     }
     
-    let dataSource: MandaratDataSource
+    let info: CellInfo
     let isFocused: Bool
     let isGroupMember: Bool
     let namespace: Namespace.ID
     let activeSize: CGFloat
     let inactiveSize: CGFloat
+    
+    private var id: UInt { info.id }
+    
+    private var dataSource: MandaratDataSource { info.dataSource }
     
     private var isVisible: Bool { isFocused || isGroupMember }
     
@@ -40,6 +45,7 @@ struct MandaratCellView: View {
         case .subject: .yellow.opacity(isFocused ? Opacity.focusedSubject : Opacity.inactive)
         case .objective: .blue.opacity(isVisible ? Opacity.visibleObjective : Opacity.inactive)
         case .actionIdea: .green.opacity(isVisible ? Opacity.visibleAction : Opacity.inactive)
+        case .placeholder: .mandamongSecondary.opacity(Opacity.placeholder)
         }
     }
     
@@ -53,7 +59,7 @@ struct MandaratCellView: View {
                 RoundedRectangle(cornerRadius: Style.cornerRadius)
                     .fill(backgroundColor)
             )
-            .matchedGeometryEffect(id: dataSource.id, in: namespace)
+            .matchedGeometryEffect(id: id, in: namespace)
     }
 }
 
