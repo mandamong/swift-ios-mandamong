@@ -36,6 +36,13 @@ extension Mandamong {
             public static let registerButtonTitle: String = "회원가입"
             public static let switchToLoginButtonTitle: String = "이미 계정이 있으신가요? 로그인"
         }
+        
+        /// 만다라트 관련 리터럴
+        public enum Mandarat {
+            public static let subject: String = "핵심 주제"
+            public static let objective: String = "세부 목표"
+            public static let actionIdea: String = "행동 아이디어"
+        }
     }
 }
 
