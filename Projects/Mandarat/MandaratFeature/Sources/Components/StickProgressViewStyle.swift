@@ -39,7 +39,6 @@ public struct StickProgressViewStyle: ProgressViewStyle {
             }
         }
         .frame(maxHeight: Constants.defaultHeight)
-        .clipShape(.capsule)
     }
 }
 

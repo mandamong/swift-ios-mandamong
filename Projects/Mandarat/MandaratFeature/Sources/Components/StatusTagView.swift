@@ -90,7 +90,6 @@ public struct StatusTagView: View {
                     .fill(.mandamongSecondary)
                     .strokeBorder(.mandamongPrimary)
             )
-            .clipShape(.capsule)
     }
 }
 
