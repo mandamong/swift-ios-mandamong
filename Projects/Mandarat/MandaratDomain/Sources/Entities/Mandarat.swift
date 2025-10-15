@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias CompletionRate = Double
+
 /// 목표별 행동 아이디어
 public struct ActionIdea: Identifiable, Equatable, Hashable {
     public let id: UInt
@@ -25,6 +27,11 @@ public struct Objective: Identifiable, Equatable, Hashable {
     public let id:  UInt
     public var content: String
     public var actionItems: [ActionIdea]
+    public var completionRate: CompletionRate {
+        guard actionItems.isEmpty == false else { return .zero }
+        let completedCount = actionItems.filter { $0.isCompleted }.count
+        return Double(completedCount) / Double(actionItems.count)
+    }
     
     public init(id: UInt, content: String, actionItems: [ActionIdea]) {
         self.id = id
@@ -53,6 +60,12 @@ public struct Mandarat: Identifiable, Equatable {
     public var subject: Subject
     public var objectives: [Objective]
     public let createdAt: Date
+    public var completionRate: CompletionRate {
+        let actionIdeas = objectives.flatMap { $0.actionItems }
+        guard actionIdeas.isEmpty == false else { return .zero }
+        let completedCount = actionIdeas.filter { $0.isCompleted }.count
+        return Double(completedCount) / Double(actionIdeas.count)
+    }
     
     public init(id: UInt, title: String, subject: Subject, objectives: [Objective], createdAt: Date = .now) {
         self.id = id
@@ -97,4 +110,9 @@ public struct Mandarat: Identifiable, Equatable {
             ])
         ]
     )
+}
+
+public enum ProgressState {
+    case inProgress(rate: CompletionRate)
+    case completed
 }
