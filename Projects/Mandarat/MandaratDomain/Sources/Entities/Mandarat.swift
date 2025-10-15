@@ -10,7 +10,7 @@ import Foundation
 public typealias CompletionRate = Double
 
 /// 목표별 행동 아이디어
-public struct ActionIdea: Identifiable, Equatable, Hashable {
+public struct ActionIdea: Identifiable, Hashable {
     public let id: UInt
     public var action: String
     public var isCompleted: Bool
@@ -23,7 +23,7 @@ public struct ActionIdea: Identifiable, Equatable, Hashable {
 }
 
 /// 핵심 주제별 목표
-public struct Objective: Identifiable, Equatable, Hashable {
+public struct Objective: Identifiable, Hashable {
     public let id:  UInt
     public var content: String
     public var actionItems: [ActionIdea]
@@ -41,7 +41,7 @@ public struct Objective: Identifiable, Equatable, Hashable {
 }
 
 /// 핵심 주제
-public struct Subject: Identifiable, Equatable, Hashable {
+public struct Subject: Identifiable, Hashable {
     public let id: UInt
     public var content: String
     public var isCompleted: Bool
@@ -54,7 +54,7 @@ public struct Subject: Identifiable, Equatable, Hashable {
 }
 
 /// 만다라트 차트
-public struct Mandarat: Identifiable, Equatable {
+public struct Mandarat: Identifiable, Hashable {
     public let id: UInt
     public var title: String
     public var subject: Subject
@@ -110,9 +110,4 @@ public struct Mandarat: Identifiable, Equatable {
             ])
         ]
     )
-}
-
-public enum ProgressState {
-    case inProgress(rate: CompletionRate)
-    case completed
 }
