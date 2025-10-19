@@ -111,7 +111,6 @@ extension Mandarat {
                 ActionIdea(id: 604, action: "앱 아이콘/스샷", isCompleted: false),
                 ActionIdea(id: 605, action: "버전 관리", isCompleted: false)
             ]),
-            // 간단한 예시를 위해 4개만 추가합니다.
             Objective(id: 205, content: "TCA", actionItems: []),
             Objective(id: 206, content: "네트워킹", actionItems: []),
             Objective(id: 207, content: "데이터 저장", actionItems: []),
@@ -137,7 +136,7 @@ extension Mandarat {
                 ActionIdea(id: 805, action: "가볍게 먹기", isCompleted: true),
                 ActionIdea(id: 806, action: "채소 위주", isCompleted: true)
             ]),
-            Objective(id: 704, content: "간식", actionItems: []), // 행동 아이디어가 없어도 OK
+            Objective(id: 704, content: "간식", actionItems: []),
             Objective(id: 705, content: "음료", actionItems: []),
             Objective(id: 706, content: "영양제", actionItems: []),
             Objective(id: 707, content: "치팅데이", actionItems: []),
