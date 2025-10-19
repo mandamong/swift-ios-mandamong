@@ -19,7 +19,7 @@ struct MandaratHomeFeature {
     @CasePathable
     enum Action: BindableAction {
         enum ViewAction {
-            case tapMandaratCell(Mandarat)
+            
         }
         
         case view(ViewAction)
@@ -32,8 +32,7 @@ struct MandaratHomeFeature {
         
         Reduce { state, action in
             switch action {
-            case let .view(.tapMandaratCell(mandarat)):
-                state.path.append(.mandaratDetailFeatureState(.init(mandarat: mandarat)))
+            case .view:
                 return .none
                 
             case .binding:
