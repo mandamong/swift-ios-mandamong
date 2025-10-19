@@ -10,14 +10,14 @@ import ComposableArchitecture
 import MandaratDomain
 import DesignSystem
 
-public struct MandaratListView: View {
+struct MandaratListView: View {
     @Bindable var store: StoreOf<MandaratListFeature>
     
-    public init(store: StoreOf<MandaratListFeature>) {
+    init(store: StoreOf<MandaratListFeature>) {
         self.store = store
     }
     
-    public var body: some View {
+    var body: some View {
         List {
             Section(Mandamong.Strings.Mandarat.subject) {
                 Text(store.mandarat.subject.content)

@@ -11,7 +11,7 @@ import MandaratDomain
 
 private typealias ChartFocus = MandaratChartFeature.ChartFocus
 
-public struct MandaratChartView: View {
+struct MandaratChartView: View {
     /// 뷰에서 사용되는 상수 값을 관리하는 이름 공간입니다.
     private enum Constants {
         static let gridSpacing: CGFloat = 10
@@ -31,11 +31,11 @@ public struct MandaratChartView: View {
     @Bindable var store: StoreOf<MandaratChartFeature>
     @Namespace private var animation
     
-    public init(store: StoreOf<MandaratChartFeature>) {
+    init(store: StoreOf<MandaratChartFeature>) {
         self.store = store
     }
     
-    public var body: some View {
+    var body: some View {
         GeometryReader { proxy in
             let paddedViewSideLength = min(proxy.size.width, proxy.size.height)
             let gridContentWidth = max(0, paddedViewSideLength - (Constants.horizontalPadding * 2))
