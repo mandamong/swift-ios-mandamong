@@ -11,7 +11,7 @@ import ComposableArchitecture
 import DesignSystem
 
 public struct MandaratHomeView: View {
-    @State private var store: StoreOf<MandaratHomeFeature> = .init(initialState: MandaratHomeFeature.State()) { MandaratHomeFeature() }
+    let store: StoreOf<MandaratHomeFeature> = .init(initialState: MandaratHomeFeature.State()) { MandaratHomeFeature() }
     
     public var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: \.path)) {
