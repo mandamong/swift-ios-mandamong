@@ -84,7 +84,7 @@ extension Mandarat {
         subject: Subject(id: 100, content: "SwiftUI 정복", isCompleted: false),
         objectives: [
             Objective(id: 201, content: "기본기", actionItems: [
-                ActionIdea(id: 301, action: "View와 Modifier", isCompleted: false),
+                ActionIdea(id: 301, action: "View와 Modifier", isCompleted: true), // 완료
                 ActionIdea(id: 302, action: "Layout 시스템", isCompleted: false),
                 ActionIdea(id: 303, action: "State 관리 기초", isCompleted: false),
                 ActionIdea(id: 304, action: "Preview 활용", isCompleted: false),
@@ -110,7 +110,96 @@ extension Mandarat {
                 ActionIdea(id: 603, action: "TestFlight", isCompleted: false),
                 ActionIdea(id: 604, action: "앱 아이콘/스샷", isCompleted: false),
                 ActionIdea(id: 605, action: "버전 관리", isCompleted: false)
-            ])
-        ]
+            ]),
+            Objective(id: 205, content: "TCA", actionItems: []),
+            Objective(id: 206, content: "네트워킹", actionItems: []),
+            Objective(id: 207, content: "데이터 저장", actionItems: []),
+            Objective(id: 208, content: "배포 자동화", actionItems: []),
+        ],
+        createdAt: Date().addingTimeInterval(-86400 * 3) // 3일 전 생성
     )
+
+    public static let mockCompleted = Mandarat(
+        id: 2,
+        title: "건강한 식습관 만들기",
+        subject: Subject(id: 200, content: "매일 건강식", isCompleted: true),
+        objectives: [
+            Objective(id: 701, content: "아침", actionItems: [
+                ActionIdea(id: 801, action: "물 마시기", isCompleted: true),
+                ActionIdea(id: 802, action: "샐러드 먹기", isCompleted: true)
+            ]),
+            Objective(id: 702, content: "점심", actionItems: [
+                ActionIdea(id: 803, action: "단백질 섭취", isCompleted: true),
+                ActionIdea(id: 804, action: "가공식품 피하기", isCompleted: true)
+            ]),
+            Objective(id: 703, content: "저녁", actionItems: [
+                ActionIdea(id: 805, action: "가볍게 먹기", isCompleted: true),
+                ActionIdea(id: 806, action: "채소 위주", isCompleted: true)
+            ]),
+            Objective(id: 704, content: "간식", actionItems: []),
+            Objective(id: 705, content: "음료", actionItems: []),
+            Objective(id: 706, content: "영양제", actionItems: []),
+            Objective(id: 707, content: "치팅데이", actionItems: []),
+            Objective(id: 708, content: "장보기", actionItems: []),
+        ],
+        createdAt: Date().addingTimeInterval(-86400 * 7) // 1주일 전 생성
+    )
+
+    public static let mockInProgress = Mandarat(
+        id: 3,
+        title: "블로그 포스팅",
+        subject: Subject(id: 300, content: "주 2회 포스팅", isCompleted: false),
+        objectives: [
+            Objective(id: 901, content: "아이디어", actionItems: [ // 2/2 완료
+                ActionIdea(id: 1001, action: "브레인스토밍", isCompleted: true),
+                ActionIdea(id: 1002, action: "키워드 리서치", isCompleted: true)
+            ]),
+            Objective(id: 902, content: "초안 작성", actionItems: [ // 1/2 진행
+                ActionIdea(id: 1003, action: "1번 포스트 초안", isCompleted: true),
+                ActionIdea(id: 1004, action: "2번 포스트 초안", isCompleted: false)
+            ]),
+            Objective(id: 903, content: "발행", actionItems: [ // 0/2 진행
+                ActionIdea(id: 1005, action: "1번 포스트 발행", isCompleted: false),
+                ActionIdea(id: 1006, action: "2번 포스트 발행", isCompleted: false)
+            ]),
+            Objective(id: 904, content: "홍보", actionItems: []),
+            Objective(id: 905, content: "통계", actionItems: []),
+            Objective(id: 906, content: "시리즈물", actionItems: []),
+            Objective(id: 907, content: "협업", actionItems: []),
+            Objective(id: 908, content: "개선", actionItems: []),
+        ],
+        createdAt: Date().addingTimeInterval(-86400 * 2) // 2일 전 생성
+    )
+
+    public static let mockNew = Mandarat(
+        id: 4,
+        title: "새로운 프로젝트 구상",
+        subject: Subject(id: 400, content: "신규 앱 기획", isCompleted: false),
+        objectives: [
+            Objective(id: 1101, content: "시장 조사", actionItems: [
+                ActionIdea(id: 1201, action: "경쟁 앱 분석", isCompleted: false),
+                ActionIdea(id: 1202, action: "타겟 유저 정의", isCompleted: false)
+            ]),
+            Objective(id: 1102, content: "기능 정의", actionItems: [
+                ActionIdea(id: 1203, action: "MVP 기능 목록", isCompleted: false)
+            ]),
+            Objective(id: 1103, content: "수익 모델", actionItems: []),
+            Objective(id: 1104, content: "기술 스택", actionItems: [
+                ActionIdea(id: 1204, action: "SwiftUI + TCA", isCompleted: false)
+            ]),
+            Objective(id: 1105, content: "디자인", actionItems: []),
+            Objective(id: 1106, content: "마케팅", actionItems: []),
+            Objective(id: 1107, content: "일정", actionItems: []),
+            Objective(id: 1108, content: "리스크", actionItems: []),
+        ],
+        createdAt: Date() // 오늘 생성
+    )
+
+    /// 만다라트 Mock 배열.
+    public static let mocks: [Mandarat] = [
+        .mock,
+        .mockCompleted,
+        .mockInProgress,
+        .mockNew
+    ]
 }

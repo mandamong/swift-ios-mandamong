@@ -1,0 +1,67 @@
+//
+//  MandaratHomeFeature.swift
+//  MandaratFeature
+//
+//  Created by SwainYun on 10/18/25.
+//
+
+import ComposableArchitecture
+import MandaratDomain
+
+@Reducer
+struct MandaratHomeFeature {
+    @ObservableState
+    struct State: Equatable {
+        var mandarats: IdentifiedArrayOf<Mandarat> = IdentifiedArray(uniqueElements: Mandarat.mocks)
+        var path: StackState<Path.State> = .init()
+    }
+    
+    @CasePathable
+    enum Action: BindableAction {
+        enum ViewAction {
+            
+        }
+        
+        case view(ViewAction)
+        case binding(BindingAction<State>)
+        case path(StackAction<Path.State, Path.Action>)
+    }
+    
+    var body: some Reducer<State, Action> {
+        BindingReducer()
+        
+        Reduce { state, action in
+            switch action {
+            case .view:
+                return .none
+                
+            case .binding:
+                return .none
+                
+            case .path:
+                return .none
+            }
+        }
+        .forEach(\.path, action: \.path) { Path() }
+    }
+}
+
+// MARK: - MandaratHomeFeature + Path
+extension MandaratHomeFeature {
+    @Reducer
+    struct Path {
+        @ObservableState
+        enum State: Equatable {
+            case mandaratDetailFeatureState(MandaratDetailFeature.State)
+        }
+        
+        @CasePathable
+        enum Action {
+            case mandaratDetailFeatureAction(MandaratDetailFeature.Action)
+        }
+        
+        var body: some Reducer<State, Action> {
+            Scope(state: \.mandaratDetailFeatureState, action: \.mandaratDetailFeatureAction) { MandaratDetailFeature() }
+        }
+    }
+}

@@ -39,6 +39,7 @@ extension Mandamong {
         
         /// 만다라트 관련 리터럴
         public enum Mandarat {
+            public static let mandarat: String = "만다라트"
             public static let subject: String = "핵심 주제"
             public static let objective: String = "세부 목표"
             public static let actionIdea: String = "행동 아이디어"

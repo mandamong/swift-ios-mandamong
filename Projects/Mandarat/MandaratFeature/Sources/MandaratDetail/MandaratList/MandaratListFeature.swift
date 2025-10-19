@@ -10,19 +10,19 @@ import ComposableArchitecture
 import MandaratDomain
 
 @Reducer
-public struct MandaratListFeature {
+struct MandaratListFeature {
     @ObservableState
-    public struct State: Equatable {
-        public var mandarat: Mandarat
+    struct State: Equatable {
+        var mandarat: Mandarat
         
-        public init(mandarat: Mandarat) {
+        init(mandarat: Mandarat) {
             self.mandarat = mandarat
         }
     }
     
     @CasePathable
-    public enum Action: BindableAction {
-        public enum ViewAction {
+    enum Action: BindableAction {
+        enum ViewAction {
             // TODO: 액션 추가
             case actionIdeaCompletionToggled(objectiveID: UInt, actionIdeaID: UInt)
         }
@@ -31,7 +31,7 @@ public struct MandaratListFeature {
         case binding(BindingAction<State>)
     }
     
-    public var body: some Reducer<State, Action> {
+    var body: some Reducer<State, Action> {
         BindingReducer()
     }
 }

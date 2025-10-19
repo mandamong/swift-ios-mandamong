@@ -9,9 +9,9 @@ import ComposableArchitecture
 import MandaratDomain
 
 @Reducer
-public struct MandaratChartFeature {
+struct MandaratChartFeature {
     /// 차트에서 강조될 그룹을 의미합니다.
-    public enum ChartFocus: Hashable, Equatable {
+    enum ChartFocus: Hashable, Equatable {
         /// 핵심 주제가 강조된 상태
         case subject
         /// 특정 목표와 행동 아이디어들이 강조된 상태
@@ -19,27 +19,27 @@ public struct MandaratChartFeature {
     }
     
     @ObservableState
-    public struct State: Equatable {
-        public var mandarat: Mandarat
-        public var cellInfos: [CellInfo]
-        public var focus: ChartFocus = .subject
+    struct State: Equatable {
+        var mandarat: Mandarat
+        var cellInfos: [CellInfo]
+        var focus: ChartFocus = .subject
         
-        public init(mandarat: Mandarat) {
+        init(mandarat: Mandarat) {
             self.mandarat = mandarat
             self.cellInfos = MandaratGridGenerator.generate(for: mandarat)
         }
     }
     
     @CasePathable
-    public enum Action {
-        public enum ViewAction {
+    enum Action {
+        enum ViewAction {
             case cellTapped(MandaratDataSource)
         }
         
         case view(ViewAction)
     }
     
-    public var body: some Reducer<State, Action> {
+    var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case let .view(.cellTapped(dataSource)):
