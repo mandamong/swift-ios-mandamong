@@ -10,22 +10,42 @@ import ComposableArchitecture
 import MandaratDomain
 import DesignSystem
 
-// TODO: 만다라트 상세 화면 구현(목록형, 그리드형 보기 옵션 전환 등)
+private typealias PresentationMode = MandaratDetailFeature.PresentationMode
+
 struct MandaratDetailView: View {
+    private struct Constants {
+        static let modePickerTitle: String = "만다라트 표시 옵션"
+        static let gridIconName: String = "rectangle.split.2x2.fill"
+        static let listIconName: String = "list.bullet"
+    }
+    
     @Bindable var store: StoreOf<MandaratDetailFeature>
     
     var body: some View {
-        VStack(spacing: 10) {
-            Text("만다라트 상세 화면")
-                .mandamongFont(.title)
-            
-            Text(store.mandarat.title)
-            
-            Text(store.mandarat.subject.content)
+        VStack {
+            switch store.mode {
+            case .grid:
+                MandaratChartView(store: store.scope(state: \.mandaratChartFeatureState, action: \.mandaratChartFeatureAction))
+                
+            case .list:
+                MandaratListView(store: store.scope(state: \.mandaratListFeatureState, action: \.mandaratListFeatureAction))
+            }
+        }
+        .navigationTitle(store.mandarat.title)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Picker(Constants.modePickerTitle, selection: $store.mode) {
+                    Image(systemName: Constants.gridIconName).tag(PresentationMode.grid)
+                    Image(systemName: Constants.listIconName).tag(PresentationMode.list)
+                }
+                .pickerStyle(.segmented)
+            }
         }
     }
 }
 
 #Preview {
-    MandaratDetailView(store: .init(initialState: MandaratDetailFeature.State(mandarat: .mock), reducer: { MandaratDetailFeature() }))
+    NavigationStack {
+        MandaratDetailView(store: .init(initialState: MandaratDetailFeature.State(mandarat: .mock), reducer: { MandaratDetailFeature() }))
+    }
 }
