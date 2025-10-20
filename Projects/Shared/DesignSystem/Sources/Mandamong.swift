@@ -14,6 +14,11 @@ public enum Mandamong { }
 extension Mandamong {
     /// 문자열 리터럴
     public enum Strings {
+        public enum Common {
+            public static let grid: String = "격자형"
+            public static let list: String = "목록형"
+        }
+        
         /// 로그인 화면 관련 리터럴
         public enum Login {
             public static let title: String = "로그인"

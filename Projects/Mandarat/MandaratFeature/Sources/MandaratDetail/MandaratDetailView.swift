@@ -35,8 +35,13 @@ struct MandaratDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Picker(Constants.modePickerTitle, selection: $store.mode) {
-                    Image(systemName: Constants.gridIconName).tag(PresentationMode.grid)
-                    Image(systemName: Constants.listIconName).tag(PresentationMode.list)
+                    Image(systemName: Constants.gridIconName)
+                        .tag(PresentationMode.grid)
+                        .accessibilityLabel(Mandamong.Strings.Common.grid)
+                    
+                    Image(systemName: Constants.listIconName)
+                        .tag(PresentationMode.list)
+                        .accessibilityLabel(Mandamong.Strings.Common.list)
                 }
                 .pickerStyle(.segmented)
             }
