@@ -8,6 +8,6 @@
 import Foundation
 
 /// AppStorage CRUD에 사용되는 키의 이름 공간
-public struct AppStorageKey {
+public enum AppStorageKey {
     public static let mandaratPresentationMode: String = "MandaratPresentationMode"
 }
