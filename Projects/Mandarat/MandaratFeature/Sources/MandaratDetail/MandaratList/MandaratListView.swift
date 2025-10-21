@@ -20,30 +20,43 @@ struct MandaratListView: View {
     var body: some View {
         List {
             Section(Mandamong.Strings.Mandarat.subject) {
-                Text(store.mandarat.subject.content)
+                cellLabel(store.mandarat.subject.content, completionRate: store.mandarat.completionRate)
             }
-            
+
             Section(Mandamong.Strings.Mandarat.objective) {
                 ForEach($store.mandarat.objectives) { $objective in
                     DisclosureGroup {
                         ForEach($objective.actionItems) { $actionIdea in
                             Toggle(isOn: $actionIdea.isCompleted) {
                                 Text(actionIdea.action)
-                                    .strikethrough(actionIdea.isCompleted, color: .secondary)
+                                    .strikethrough(actionIdea.isCompleted)
+                                    .foregroundStyle(actionIdea.isCompleted ? .mandamongSecondary : .mandamongPrimary)
                             }
                         }
                     } label: {
-                        Text(objective.content)
+                        cellLabel(objective.content, completionRate: objective.completionRate)
                     }
                 }
             }
         }
-        .navigationTitle(store.mandarat.title)
+    }
+    
+    @ViewBuilder
+    private func cellLabel(_ title: String, completionRate: CompletionRate) -> some View {
+        VStack {
+            HStack {
+                Text(title)
+                
+                Spacer()
+                
+                StatusTagView(rate: completionRate)
+            }
+            
+            ProgressView(value: completionRate).progressViewStyle(.stick)
+        }
     }
 }
 
 #Preview {
-    NavigationStack {
-        MandaratListView(store: .init(initialState: MandaratListFeature.State.init(mandarat: .mock), reducer: { MandaratListFeature() }))
-    }
+    MandaratListView(store: .init(initialState: MandaratListFeature.State.init(mandarat: .mock), reducer: { MandaratListFeature() }))
 }

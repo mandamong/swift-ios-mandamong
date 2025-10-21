@@ -84,7 +84,7 @@ extension Mandarat {
         subject: Subject(id: 100, content: "SwiftUI 정복", isCompleted: false),
         objectives: [
             Objective(id: 201, content: "기본기", actionItems: [
-                ActionIdea(id: 301, action: "View와 Modifier", isCompleted: true), // 완료
+                ActionIdea(id: 301, action: "View와 Modifier", isCompleted: true),
                 ActionIdea(id: 302, action: "Layout 시스템", isCompleted: false),
                 ActionIdea(id: 303, action: "State 관리 기초", isCompleted: false),
                 ActionIdea(id: 304, action: "Preview 활용", isCompleted: false),
@@ -111,12 +111,8 @@ extension Mandarat {
                 ActionIdea(id: 604, action: "앱 아이콘/스샷", isCompleted: false),
                 ActionIdea(id: 605, action: "버전 관리", isCompleted: false)
             ]),
-            Objective(id: 205, content: "TCA", actionItems: []),
-            Objective(id: 206, content: "네트워킹", actionItems: []),
-            Objective(id: 207, content: "데이터 저장", actionItems: []),
-            Objective(id: 208, content: "배포 자동화", actionItems: []),
         ],
-        createdAt: Date().addingTimeInterval(-86400 * 3) // 3일 전 생성
+        createdAt: Date().addingTimeInterval(-86400 * 3)
     )
 
     public static let mockCompleted = Mandarat(
@@ -137,12 +133,8 @@ extension Mandarat {
                 ActionIdea(id: 806, action: "채소 위주", isCompleted: true)
             ]),
             Objective(id: 704, content: "간식", actionItems: []),
-            Objective(id: 705, content: "음료", actionItems: []),
-            Objective(id: 706, content: "영양제", actionItems: []),
-            Objective(id: 707, content: "치팅데이", actionItems: []),
-            Objective(id: 708, content: "장보기", actionItems: []),
         ],
-        createdAt: Date().addingTimeInterval(-86400 * 7) // 1주일 전 생성
+        createdAt: Date().addingTimeInterval(-86400 * 7)
     )
 
     public static let mockInProgress = Mandarat(
@@ -150,25 +142,21 @@ extension Mandarat {
         title: "블로그 포스팅",
         subject: Subject(id: 300, content: "주 2회 포스팅", isCompleted: false),
         objectives: [
-            Objective(id: 901, content: "아이디어", actionItems: [ // 2/2 완료
+            Objective(id: 901, content: "아이디어", actionItems: [
                 ActionIdea(id: 1001, action: "브레인스토밍", isCompleted: true),
                 ActionIdea(id: 1002, action: "키워드 리서치", isCompleted: true)
             ]),
-            Objective(id: 902, content: "초안 작성", actionItems: [ // 1/2 진행
+            Objective(id: 902, content: "초안 작성", actionItems: [
                 ActionIdea(id: 1003, action: "1번 포스트 초안", isCompleted: true),
                 ActionIdea(id: 1004, action: "2번 포스트 초안", isCompleted: false)
             ]),
-            Objective(id: 903, content: "발행", actionItems: [ // 0/2 진행
+            Objective(id: 903, content: "발행", actionItems: [
                 ActionIdea(id: 1005, action: "1번 포스트 발행", isCompleted: false),
                 ActionIdea(id: 1006, action: "2번 포스트 발행", isCompleted: false)
             ]),
             Objective(id: 904, content: "홍보", actionItems: []),
-            Objective(id: 905, content: "통계", actionItems: []),
-            Objective(id: 906, content: "시리즈물", actionItems: []),
-            Objective(id: 907, content: "협업", actionItems: []),
-            Objective(id: 908, content: "개선", actionItems: []),
         ],
-        createdAt: Date().addingTimeInterval(-86400 * 2) // 2일 전 생성
+        createdAt: Date().addingTimeInterval(-86400 * 2)
     )
 
     public static let mockNew = Mandarat(
@@ -187,15 +175,10 @@ extension Mandarat {
             Objective(id: 1104, content: "기술 스택", actionItems: [
                 ActionIdea(id: 1204, action: "SwiftUI + TCA", isCompleted: false)
             ]),
-            Objective(id: 1105, content: "디자인", actionItems: []),
-            Objective(id: 1106, content: "마케팅", actionItems: []),
-            Objective(id: 1107, content: "일정", actionItems: []),
-            Objective(id: 1108, content: "리스크", actionItems: []),
         ],
-        createdAt: Date() // 오늘 생성
+        createdAt: Date()
     )
 
-    /// 만다라트 Mock 배열.
     public static let mocks: [Mandarat] = [
         .mock,
         .mockCompleted,
