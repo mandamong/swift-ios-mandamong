@@ -61,10 +61,9 @@ public struct Mandarat: Identifiable, Hashable {
     public var objectives: [Objective]
     public let createdAt: Date
     public var completionRate: CompletionRate {
-        let actionIdeas = objectives.flatMap { $0.actionItems }
-        guard actionIdeas.isEmpty == false else { return .zero }
-        let completedCount = actionIdeas.filter { $0.isCompleted }.count
-        return Double(completedCount) / Double(actionIdeas.count)
+        guard objectives.isEmpty == false else { return .zero }
+        let completedObjectivesCount = objectives.filter { $0.completionRate == 1.0 }.count
+        return Double(completedObjectivesCount) / Double(objectives.count)
     }
     
     public init(id: UInt, title: String, subject: Subject, objectives: [Objective], createdAt: Date = .now) {
