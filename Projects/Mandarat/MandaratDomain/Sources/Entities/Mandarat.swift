@@ -76,6 +76,14 @@ public struct Mandarat: Identifiable, Hashable {
     }
 }
 
+/// 만다라트 도메인 규칙
+public enum MandaratRules {
+    /// 만다라트가 가질 수 있는 최대 목표(`Objectvie`) 개수입니다.
+    public static let maxObjectives: Int = 4
+    /// 하나의 목표가 가질 수 있는 최대 행동 아이디어(`ActionIdea`) 개수입니다.
+    public static let maxActionIdeas: Int = 5
+}
+
 // MARK: - Mandarat + Mock
 extension Mandarat {
     public static let mock = Mandarat(
