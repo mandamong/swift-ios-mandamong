@@ -35,6 +35,16 @@ struct MandaratDetailFeature {
     
     @CasePathable
     enum Action: BindableAction {
+        enum ViewAction {
+            case tapDeleteButton
+        }
+        
+        enum DelegateAction {
+            case deleteMandarat(Mandarat.ID)
+        }
+        
+        case view(ViewAction)
+        case delegate(DelegateAction)
         case binding(BindingAction<State>)
         case mandaratChartFeatureAction(MandaratChartFeature.Action)
         case mandaratListFeatureAction(MandaratListFeature.Action)
@@ -48,6 +58,12 @@ struct MandaratDetailFeature {
         
         Reduce { state, action in
             switch action {
+            case .view(.tapDeleteButton):
+                return .send(.delegate(.deleteMandarat(state.mandarat.id)))
+                
+            case .delegate:
+                return .none
+                
             case .binding:
                 return .none
                 
