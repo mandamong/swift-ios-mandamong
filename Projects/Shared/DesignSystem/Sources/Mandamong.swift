@@ -17,6 +17,7 @@ extension Mandamong {
         public enum Common {
             public static let grid: String = "격자형"
             public static let list: String = "목록형"
+            public static let delete: String = "삭제"
         }
         
         /// 로그인 화면 관련 리터럴
