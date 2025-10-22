@@ -10,6 +10,8 @@ import MandaratDomain
 import ComposableArchitecture
 import DesignSystem
 
+private typealias StringLiterals = Mandamong.Strings
+
 public struct MandaratHomeView: View {
     private enum Constants {
         static let createIconName: String = "plus"
@@ -24,34 +26,39 @@ public struct MandaratHomeView: View {
     public var body: some View {
         NavigationStackStore(store.scope(state: \.path, action: \.path)) {
             ZStack(alignment: .bottomTrailing) {
-                GeometryReader { proxy in
-                    List {
-                        ForEach(store.mandarats) { mandarat in
-                            NavigationLink(state: MandaratHomeFeature.Path.State.mandaratDetailFeatureState(.init(mandarat: mandarat))) {
-                                cell(mandarat, width: proxy.size.width)
-                            }
-                            .listRowSeparator(.hidden)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    store.send(.view(.swipeToDelete(mandarat.id)))
-                                } label: {
-                                    Label(Mandamong.Strings.Common.delete, systemImage: Constants.deleteIconName)
+                if store.mandarats.isEmpty {
+                    ContentUnavailableView {
+                        Text(StringLiterals.Mandarat.emptyMandaratsTitleMessage)
+                    } description: {
+                        Text(StringLiterals.Mandarat.emptyMandaratsDescriptionMessage)
+                    } actions: {
+                        createMandaratButton
+                    }
+
+                } else {
+                    GeometryReader { proxy in
+                        List {
+                            ForEach(store.mandarats) { mandarat in
+                                NavigationLink(state: MandaratHomeFeature.Path.State.mandaratDetailFeatureState(.init(mandarat: mandarat))) {
+                                    cell(mandarat, width: proxy.size.width)
+                                }
+                                .listRowSeparator(.hidden)
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                    Button(role: .destructive) {
+                                        store.send(.view(.swipeToDelete(mandarat.id)))
+                                    } label: {
+                                        Label(StringLiterals.Common.delete, systemImage: Constants.deleteIconName)
+                                    }
                                 }
                             }
                         }
+                        .listStyle(.plain)
                     }
-                    .listStyle(.plain)
                 }
                 
-                Button {
-                    // TODO: 만다라트 생성 기능 추가
-                } label: {
-                    Image(systemName: Constants.createIconName)
-                }
-                .buttonStyle(.borderedProminent)
-                .padding()
+                createMandaratButton
             }
-            .navigationTitle(Mandamong.Strings.Mandarat.mandarat)
+            .navigationTitle(StringLiterals.Mandarat.mandarat)
         } destination: { store in
             switch store.state {
             case .mandaratDetailFeatureState:
@@ -95,6 +102,16 @@ private extension MandaratHomeView {
                 .fill(.mandamongBackground)
                 .shadow(color: .mandamongSecondary.opacity(Constants.cellBackgroundOpacity), radius: Constants.cellCornerRadius, y: 10)
         )
+    }
+    
+    var createMandaratButton: some View {
+        Button {
+            // TODO: 만다라트 생성 기능 추가
+        } label: {
+            Image(systemName: Constants.createIconName)
+        }
+        .buttonStyle(.borderedProminent)
+        .padding()
     }
 }
 
