@@ -17,6 +17,7 @@ struct MandaratDetailView: View {
         static let modePickerTitle: String = "만다라트 표시 옵션"
         static let gridIconName: String = "rectangle.split.2x2.fill"
         static let listIconName: String = "list.bullet"
+        static let deleteIconName: String = "trash"
     }
     
     @Bindable var store: StoreOf<MandaratDetailFeature>
@@ -33,7 +34,14 @@ struct MandaratDetailView: View {
         }
         .navigationTitle(store.mandarat.title)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button(role: .destructive) {
+                    store.send(.view(.tapDeleteButton))
+                } label: {
+                    Image(systemName: Constants.deleteIconName)
+                }
+                .accessibilityLabel(Mandamong.Strings.Common.delete)
+                
                 Picker(Constants.modePickerTitle, selection: $store.mode) {
                     Image(systemName: Constants.gridIconName)
                         .tag(PresentationMode.grid)
