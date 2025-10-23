@@ -16,7 +16,7 @@ public struct MandaratHomeView: View {
     private enum Constants {
         static let createIconName: String = "plus"
         static let deleteIconName: String = "trash"
-        static let cellContentSpacing: CGFloat = 30
+        static let cellContentSpacing: CGFloat = 4
         static let cellCornerRadius: CGFloat = 8
         static let cellBackgroundOpacity: CGFloat = 0.4
     }
