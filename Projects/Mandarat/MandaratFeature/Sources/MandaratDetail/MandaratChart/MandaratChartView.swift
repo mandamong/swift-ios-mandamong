@@ -140,5 +140,11 @@ private extension MandaratChartView {
 }
 
 #Preview {
-    MandaratChartView(store: .init(initialState: MandaratChartFeature.State(mandarat: .mock), reducer: { MandaratChartFeature() }))
+    MandaratChartView(store: .init(initialState: MandaratChartFeature.State(mandarat: .mock), reducer: { MandaratChartFeature() })) { _ in
+        ()
+    } onEditObjective: { _ in
+        ()
+    } onEditActionIdea: { _ in
+        ()
+    }
 }

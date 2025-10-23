@@ -58,5 +58,11 @@ struct MandaratListView: View {
 }
 
 #Preview {
-    MandaratListView(store: .init(initialState: MandaratListFeature.State.init(mandarat: .mock), reducer: { MandaratListFeature() }))
+    MandaratListView(store: .init(initialState: MandaratListFeature.State.init(mandarat: .mock), reducer: { MandaratListFeature() })) { _ in
+        ()
+    } onEditObjective: { _ in
+        ()
+    } onEditActionIdea: { _ in
+        ()
+    }
 }
