@@ -31,8 +31,20 @@ struct MandaratChartView: View {
     @Bindable var store: StoreOf<MandaratChartFeature>
     @Namespace private var animation
     
-    init(store: StoreOf<MandaratChartFeature>) {
+    let onEditSubject: (Subject) -> Void
+    let onEditObjective: (Objective) -> Void
+    let onEditActionIdea: (ActionIdea) -> Void
+    
+    init(
+        store: StoreOf<MandaratChartFeature>,
+        onEditSubject: @escaping (Subject) -> Void,
+        onEditObjective: @escaping (Objective) -> Void,
+        onEditActionIdea: @escaping (ActionIdea) -> Void
+    ) {
         self.store = store
+        self.onEditSubject = onEditSubject
+        self.onEditObjective = onEditObjective
+        self.onEditActionIdea = onEditActionIdea
     }
     
     var body: some View {
@@ -135,6 +147,14 @@ private extension MandaratChartView {
         .onTapGesture {
             let animation = Animation.bouncy(extraBounce: Constants.Animation.extraBounce)
             store.send(.view(.cellTapped(info.dataSource)), animation: animation)
+        }
+        .onLongPressGesture {
+            switch info.dataSource {
+            case .subject(let subject): onEditSubject(subject)
+            case .objective(let objective): onEditObjective(objective)
+            case .actionIdea(let actionIdea): onEditActionIdea(actionIdea)
+            case .placeholder: return
+            }
         }
     }
 }
