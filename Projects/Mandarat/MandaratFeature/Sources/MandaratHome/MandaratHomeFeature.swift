@@ -51,6 +51,10 @@ struct MandaratHomeFeature {
                 state.path.pop(from: pathID)
                 return .none
                 
+            case let .path(.element(id: _, action: .mandaratDetailFeatureAction(.delegate(.didUpdateMandarat(updatedMandarat))))):
+                state.mandarats[id: updatedMandarat.id] = updatedMandarat
+                return .none
+                
             case .path:
                 return .none
             }
