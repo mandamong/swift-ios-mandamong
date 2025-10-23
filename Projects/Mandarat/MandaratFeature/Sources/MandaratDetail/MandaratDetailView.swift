@@ -26,10 +26,24 @@ struct MandaratDetailView: View {
         VStack {
             switch store.mode {
             case .grid:
-                MandaratChartView(store: store.scope(state: \.mandaratChartFeatureState, action: \.mandaratChartFeatureAction))
+                MandaratChartView(store: store.scope(state: \.mandaratChartFeatureState, action: \.mandaratChartFeatureAction)) { subject in
+                    store.send(.view(.tapEditSubjectButton(subject)))
+                } onEditObjective: { objective in
+                    store.send(.view(.tapEditObjectiveButton(objective)))
+                } onEditActionIdea: { actionIdea in
+                    store.send(.view(.tapEditActionIdeaButton(actionIdea)))
+                }
+
                 
             case .list:
-                MandaratListView(store: store.scope(state: \.mandaratListFeatureState, action: \.mandaratListFeatureAction))
+                MandaratListView(store: store.scope(state: \.mandaratListFeatureState, action: \.mandaratListFeatureAction)) { subject in
+                    store.send(.view(.tapEditSubjectButton(subject)))
+                } onEditObjective: { objective in
+                    store.send(.view(.tapEditObjectiveButton(objective)))
+                } onEditActionIdea: { actionIdea in
+                    store.send(.view(.tapEditActionIdeaButton(actionIdea)))
+                }
+
             }
         }
         .navigationTitle(store.mandarat.title)
@@ -53,6 +67,9 @@ struct MandaratDetailView: View {
                 }
                 .pickerStyle(.segmented)
             }
+        }
+        .sheet(store: store.scope(state: \.$mandaratEditFeatureState, action: \.mandaratEditFeatureAction)) { editStore in
+            MandaratEditView(store: editStore)
         }
     }
 }
