@@ -18,6 +18,10 @@ extension Mandamong {
             public static let grid: String = "격자형"
             public static let list: String = "목록형"
             public static let delete: String = "삭제"
+            public static let cancel: String = "취소"
+            public static let save: String = "저장"
+            public static let next: String = "다음"
+            public static let edit: String = "수정"
         }
         
         /// 로그인 화면 관련 리터럴
