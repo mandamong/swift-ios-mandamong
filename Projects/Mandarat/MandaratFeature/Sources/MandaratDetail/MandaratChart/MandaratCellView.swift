@@ -62,7 +62,3 @@ struct MandaratCellView: View {
             .matchedGeometryEffect(id: id, in: namespace)
     }
 }
-
-#Preview {
-    MandaratChartView(store: .init(initialState: MandaratChartFeature.State(mandarat: .mock), reducer: { MandaratChartFeature() }))
-}

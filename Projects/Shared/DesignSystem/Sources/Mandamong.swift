@@ -17,6 +17,11 @@ extension Mandamong {
         public enum Common {
             public static let grid: String = "격자형"
             public static let list: String = "목록형"
+            public static let delete: String = "삭제"
+            public static let cancel: String = "취소"
+            public static let save: String = "저장"
+            public static let next: String = "다음"
+            public static let edit: String = "수정"
         }
         
         /// 로그인 화면 관련 리터럴
@@ -48,6 +53,8 @@ extension Mandamong {
             public static let subject: String = "핵심 주제"
             public static let objective: String = "세부 목표"
             public static let actionIdea: String = "행동 아이디어"
+            public static let emptyMandaratsTitleMessage: String = "아직 만다라트가 없어요."
+            public static let emptyMandaratsDescriptionMessage: String = "새로운 만다라트를 만들어 보세요."
         }
     }
 }

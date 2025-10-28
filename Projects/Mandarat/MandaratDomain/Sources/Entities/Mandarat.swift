@@ -61,10 +61,9 @@ public struct Mandarat: Identifiable, Hashable {
     public var objectives: [Objective]
     public let createdAt: Date
     public var completionRate: CompletionRate {
-        let actionIdeas = objectives.flatMap { $0.actionItems }
-        guard actionIdeas.isEmpty == false else { return .zero }
-        let completedCount = actionIdeas.filter { $0.isCompleted }.count
-        return Double(completedCount) / Double(actionIdeas.count)
+        guard objectives.isEmpty == false else { return .zero }
+        let completedObjectivesCount = objectives.filter { $0.completionRate == 1.0 }.count
+        return Double(completedObjectivesCount) / Double(objectives.count)
     }
     
     public init(id: UInt, title: String, subject: Subject, objectives: [Objective], createdAt: Date = .now) {
@@ -74,6 +73,14 @@ public struct Mandarat: Identifiable, Hashable {
         self.objectives = objectives
         self.createdAt = createdAt
     }
+}
+
+/// 만다라트 도메인 규칙
+public enum MandaratRules {
+    /// 만다라트가 가질 수 있는 최대 목표(`Objectvie`) 개수입니다.
+    public static let maxObjectives: Int = 4
+    /// 하나의 목표가 가질 수 있는 최대 행동 아이디어(`ActionIdea`) 개수입니다.
+    public static let maxActionIdeas: Int = 5
 }
 
 // MARK: - Mandarat + Mock
